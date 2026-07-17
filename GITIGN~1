@@ -1,0 +1,14 @@
+# Raw / derived data (download via copernicusmarine - see data/README.md)
+*.nc
+data/*.nc
+CLAUDE ARTICLE DATA/
+# Eddy CSVs and generated figures
+EDDIES/
+figures/*.png
+figures/*.pdf
+FIGURES/
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env

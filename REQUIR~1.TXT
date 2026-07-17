@@ -1,0 +1,23 @@
+# Core scientific stack
+numpy
+scipy
+pandas
+xarray
+dask
+netCDF4
+# Trend / spectral / clustering
+pymannkendall
+pyhomogeneity
+PyWavelets
+scikit-learn
+eofs
+# Eddy detection
+py-eddy-tracker==3.6.1
+# Plotting / maps
+matplotlib
+cartopy
+cmocean
+# Data access
+copernicusmarine
+cdsapi            # ERA5 mean sea-level pressure (WeMO reconstruction)
+tqdm
