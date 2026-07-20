@@ -1,0 +1,25 @@
+name: algerian-basin
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - scipy
+  - pandas
+  - xarray
+  - dask
+  - netcdf4
+  - matplotlib
+  - cartopy
+  - cmocean
+  - scikit-learn
+  - tqdm
+  - pip
+  - pip:
+      - eofs
+      - pymannkendall
+      - pyhomogeneity
+      - PyWavelets
+      - py-eddy-tracker==3.6.1
+      - copernicusmarine
+      - cdsapi

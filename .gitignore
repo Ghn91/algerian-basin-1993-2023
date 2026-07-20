@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.nc
+FIGURES/
+EDDIES/
+.ipynb_checkpoints/
