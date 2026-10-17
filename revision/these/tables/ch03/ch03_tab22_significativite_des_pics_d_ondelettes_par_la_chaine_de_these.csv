@@ -1,0 +1,7 @@
+fond_rouge,alpha_employe,periode_annoncee_mois,periode_analysee_mois,puissance,seuil_95,rapport_au_seuil,franchit
+alpha mesure sur l'anomalie,0.691571,74,72.098694,1355.831562,1953.502503,0.694052,NON
+alpha mesure sur l'anomalie,0.691571,24,23.375109,438.240319,1030.411915,0.425306,NON
+alpha mesure sur l'anomalie,0.691571,maximum observe,121.255066,1440.820413,2286.876546,0.630039,NON
+alpha declare au manuscrit,0.115000,74,72.098694,1355.831562,472.990448,2.866509,oui
+alpha declare au manuscrit,0.115000,24,23.375109,438.240319,356.531595,1.229177,oui
+alpha declare au manuscrit,0.115000,maximum observe,121.255066,1440.820413,535.380423,2.691209,oui

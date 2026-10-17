@@ -1,0 +1,17 @@
+energie,serie,n_mois,premier_mois,dernier_mois,r1_indice,r1_eke,n_effectif,retard_du_maximum,r_au_maximum,r_au_retard_zero,seuil_nominal,retards_significatifs_nominal,etendue_nominale,retards_contigus_nominal,tests_balayes,seuil_bonferroni,retards_significatifs_bonferroni,etendue_bonferroni,retards_contigus_bonferroni,pic_survit_a_bonferroni
+turbulente_quotidienne,reconstruction de la these,372,1993-01,2023-12,0.013236,0.691571,365.251713,20,-0.185274,0.070866,0.102615,4,4 retards disperses entre +1 et +21,non,49,0.170894,2,+20 a +21,oui,oui
+turbulente_quotidienne,serie publiee UB,252,1993-01,2013-12,0.171509,0.724362,196.305021,-2,-0.237537,-0.146841,0.140043,11,11 retards disperses entre -4 et +24,non,49,0.231961,1,-2 a -2,oui,oui
+turbulente_quotidienne,"reconstruction de la these, bornee aux mois de UB",252,1993-01,2013-12,0.041042,0.724362,237.448975,21,-0.179049,-0.031552,0.127310,5,5 retards disperses entre -2 et +24,non,49,0.211299,0,aucun,sans objet,non
+turbulente_quotidienne,reconstruction d'origine (signe inverse),372,1993-01,2023-12,0.014735,0.691571,364.495010,20,0.186369,-0.072046,0.102722,4,4 retards disperses entre +1 et +21,non,49,0.171069,2,+20 a +21,oui,oui
+turbulente_mensuelle,reconstruction de la these,372,1993-01,2023-12,0.013236,0.644835,365.703900,21,-0.171108,0.055769,0.102552,3,3 retards disperses entre +6 et +21,non,49,0.170789,1,+21 a +21,oui,oui
+turbulente_mensuelle,serie publiee UB,252,1993-01,2013-12,0.171509,0.686846,198.885578,-2,-0.224911,-0.177847,0.139130,12,12 retards disperses entre -5 et +24,non,49,0.230483,0,aucun,sans objet,non
+turbulente_mensuelle,"reconstruction de la these, bornee aux mois de UB",252,1993-01,2013-12,0.041042,0.686846,238.181938,21,-0.183488,-0.053852,0.127113,4,4 retards disperses entre -3 et +21,non,49,0.210980,0,aucun,sans objet,non
+turbulente_mensuelle,reconstruction d'origine (signe inverse),372,1993-01,2023-12,0.014735,0.644835,364.997420,21,0.172831,-0.057267,0.102651,3,3 retards disperses entre +6 et +21,non,49,0.170953,1,+21 a +21,oui,oui
+totale_quotidienne,reconstruction de la these,372,1993-01,2023-12,0.013236,0.647539,365.677725,1,0.231278,0.182171,0.102555,2,+0 a +1,oui,49,0.170795,2,+0 a +1,oui,oui
+totale_quotidienne,serie publiee UB,252,1993-01,2013-12,0.171509,0.641243,202.062706,-2,-0.190533,0.017689,0.138030,6,6 retards disperses entre -12 et +24,non,49,0.228702,0,aucun,sans objet,non
+totale_quotidienne,"reconstruction de la these, bornee aux mois de UB",252,1993-01,2013-12,0.041042,0.641243,239.075865,1,0.181519,0.105704,0.126875,1,+1 a +1,oui,49,0.210592,0,aucun,sans objet,non
+totale_quotidienne,reconstruction d'origine (signe inverse),372,1993-01,2023-12,0.014735,0.647539,364.968336,1,-0.230813,-0.181951,0.102655,2,+0 a +1,oui,49,0.170959,2,+0 a +1,oui,oui
+totale_mensuelle,reconstruction de la these,372,1993-01,2023-12,0.013236,0.609551,366.045651,1,0.220122,0.176105,0.102504,2,+0 a +1,oui,49,0.170711,2,+0 a +1,oui,oui
+totale_mensuelle,serie publiee UB,252,1993-01,2013-12,0.171509,0.603542,204.723313,-2,-0.173971,0.005249,0.137128,7,7 retards disperses entre -12 et +24,non,49,0.227242,0,aucun,sans objet,non
+totale_mensuelle,"reconstruction de la these, bornee aux mois de UB",252,1993-01,2013-12,0.041042,0.603542,239.817360,1,0.172336,0.097116,0.126678,1,+1 a +1,oui,49,0.210272,0,aucun,sans objet,non
+totale_mensuelle,reconstruction d'origine (signe inverse),372,1993-01,2023-12,0.014735,0.609551,365.377174,1,-0.219572,-0.176029,0.102598,2,+0 a +1,oui,49,0.170865,2,+0 a +1,oui,oui

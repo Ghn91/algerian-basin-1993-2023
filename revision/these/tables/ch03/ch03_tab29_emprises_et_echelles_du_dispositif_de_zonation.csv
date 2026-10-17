@@ -1,0 +1,8 @@
+grandeur,unite,emprise_de_la_these,emprise_de_l_article
+longitude minimale du domaine,degres est,-3.000000,-5.000000
+longitude maximale du domaine,degres est,10.000000,10.000000
+latitude minimale du domaine,degres nord,34.520832,35.020000
+latitude maximale du domaine,degres nord,39.479168,40.980000
+ecart-type de la composante zonale moyenne,m/s,0.072759,nan
+ecart-type de la composante meridienne moyenne,m/s,0.050208,nan
+rapport des deux ecarts-types,sans,1.449144,nan

@@ -1,0 +1,21 @@
+{
+  "releve_le": "2026-10-05",
+  "url": "https://www.cpc.ncep.noaa.gov/products/precip/CWlink/pna/norm.nao.monthly.b5001.current.ascii",
+  "source": "NOAA Climate Prediction Center, serie NAO mensuelle dediee, normalisee sur la climatologie 1981-2010",
+  "sha256_du_texte_recu": "0f0e6be989132c40e4ed5e60f3a5f961eb31525efd110188a84288595d834f35",
+  "lignes_recues": 921,
+  "triplets_lus": 921,
+  "lignes_refusees": 0,
+  "mois_de_la_periode": 372,
+  "mois_attendus": 372,
+  "premier_mois": "1993-01",
+  "dernier_mois": "2023-12",
+  "derniere_annee_du_fichier": 2026,
+  "changements_de_quantification": [
+    {
+      "annee": 2006,
+      "decimales_utiles_avant": 2,
+      "decimales_utiles_apres": 4
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "indices_testes": [
+    "wemo",
+    "mo",
+    "nao"
+  ],
+  "correlations_croisees_tendance_retiree": {
+    "wemo_mo": 0.214099,
+    "wemo_nao": -0.019561,
+    "mo_nao": 0.376371
+  },
+  "correlation_wemo_mo_tendance_retiree": 0.214099,
+  "mailles_de_mer": 748,
+  "mailles_de_mer_au_dela_d_une_couronne": 572,
+  "dx_km_min": 20.4132,
+  "dx_km_max": 23.2477,
+  "dy_km": 27.7987,
+  "part_de_tendance_du_rotationnel_mediane": 0.00047,
+  "tirages_de_plancher": 200,
+  "graine": 20261005,
+  "retards_testes": [
+    0,
+    1
+  ]
+}

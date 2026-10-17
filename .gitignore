@@ -1,6 +1,9 @@
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
+*.partiel
 *.nc
+!revision/revision_2026/donnees/era5_*.nc
+!revision/these/data/raw/gebco_2026.nc
 FIGURES/
 EDDIES/
-.ipynb_checkpoints/

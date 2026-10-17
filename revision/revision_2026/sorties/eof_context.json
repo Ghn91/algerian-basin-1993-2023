@@ -1,0 +1,17 @@
+{
+  "ecart_EOF1_contre_these": -0.014866,
+  "ecart_EOF2_contre_these": 0.002634,
+  "ecart_EOF3_contre_these": 0.001723,
+  "ecart_EOF4_contre_these": 0.000689,
+  "mailles_du_domaine_commun": 766,
+  "mailles_grille_fine": 3064,
+  "mois": 372,
+  "modes": 4,
+  "valeurs_manquantes": {
+    "allsat_0125": 0,
+    "allsat_025": 0,
+    "twosat_025": 0
+  },
+  "remplissage_a_zero": "sans objet : le domaine commun est plein",
+  "ponderation": "racine de cos(phi) — la variance est ponderee par cos(phi), non par son carre"
+}

@@ -1,0 +1,6 @@
+serie,jeu_de_composantes,ordre_des_operations,statut,moyenne_cm2_s2,r_contre_la_serie_definie,r_zero_publie,r_zero_reproduit,ecart_au_r_zero_publie,r_max_publie,r_max_reproduit,ecart_au_r_max_publie,retard_publie,retard_reproduit,n_mois_publie
+turbulente_quotidienne,anomalies ugosa vgosa,carre quotidien puis moyenne,definie a l equation 1 du manuscrit,60.194391,1.000000,,,,,,,,,
+turbulente_mensuelle,anomalies ugosa vgosa,moyenne mensuelle des vitesses puis carre,croisee,44.487133,0.954941,,,,,,,,,
+totale_quotidienne,absolues ugos vgos,carre quotidien puis moyenne,croisee,113.948154,0.738948,,,,,,,,,
+totale_mensuelle,absolues ugos vgos,moyenne mensuelle des vitesses puis carre,calculee par le script de sa figure 8,98.240907,0.660781,,,,,,,,,
+reproduction du chiffre publie,absolues ugos vgos,moyenne mensuelle des vitesses puis carre,recette de la figure 8 confrontee au § 5.3 du manuscrit,nan,nan,-0.176000,-0.176029,0.000029,-0.220000,-0.219572,0.000428,1.0,1.0,372.0

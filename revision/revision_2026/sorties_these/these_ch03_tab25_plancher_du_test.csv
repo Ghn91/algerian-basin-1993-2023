@@ -1,0 +1,3 @@
+regime,r1_indice_simule,r1_energie_simule,n_mois,tirages,risque_annonce_pourcent,plancher_au_risque_nominal_pourcent,plancher_avec_bonferroni_pourcent
+regime de la reconstruction sur 372 mois,0.013000,0.692000,372,200,5.000000,86.000000,4.000000
+regime de la serie publiee sur 252 mois,0.172000,0.724000,252,200,5.000000,78.500000,5.000000

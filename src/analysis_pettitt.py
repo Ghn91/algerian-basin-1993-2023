@@ -1,7 +1,17 @@
-# Pettitt change-point test on the annual EKE anomaly
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Pettitt change-point test on the annual TWO-SAT EKE anomaly.
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 import xarray as xr
 import numpy as np
@@ -54,7 +64,6 @@ cp_year = years[result.cp]
 print(f"""
 === PHRASE POUR main.tex (section 3.5.1) ===
 
-The Pettitt test identifies a statistically significant change point at
-{cp_year} (U = {result.U:.1f}, p = {result.p:.4f}), formally confirming
-the regime shift identified visually in the EKE anomaly time series.
+The Pettitt test {'identifies a statistically significant' if result.p < 0.05 else 'does not identify a statistically significant'} change point; the
+candidate year is {cp_year} (U = {result.U:.1f}, p = {result.p:.4f}).
 """)

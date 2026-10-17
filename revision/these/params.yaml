@@ -1,0 +1,126 @@
+
+domaine_telechargement:
+  lon_min: -3.0
+  lon_max: 10.0
+  lat_min: 34.5
+  lat_max: 39.5
+
+domaine:
+  lon_min: -2.0
+  lon_max: 9.0
+  lat_min: 35.0
+  lat_max: 38.5
+  isobathe_max: 2500
+  isobathes_sensibilite: [1000, 3000]
+
+periode:
+  debut: 1993
+  fin: 2024
+  n_mois: 384
+  sous_periode_1: [1993, 2007]
+  sous_periode_2: [2008, 2024]
+  bgc_debut: 1999
+
+produit:
+  jonction_estimee: 2025-07-31
+  jonction_relevee_le: 2026-09-18
+  jonction_methode: "derniere date des jeux declares MFS E3R1 au catalogue STAC ;
+                     relevee par src/verifier_copernicus.py, archivee dans
+                     docs/copernicus.json"
+  chapitre3_article: [1993, 2023]
+  doi_reanalyse: 10.25423/CMCC/MEDSEA_MULTIYEAR_PHY_006_004_E3R1
+  doi_interim:   10.25423/CMCC/MEDSEA_MULTIYEAR_PHY_006_004_E3R1I
+
+resolution_temporelle:
+  quotidien: [vitesse_moyenne, eke, grad_sst]
+  mensuel:   [u_moy, v_moy, sst_moy, sss_moy, mld_moy, amplitudes]
+
+descripteurs:
+  log_transform: [eke, grad_sst, pente]
+  standardisation: zscore
+  seuil_correlation: 0.90
+  ecartes: [mld_moy, mld_amp, sst_moy]
+
+  geometriques: [profondeur, pente, distance_cote]
+  arbitrage:
+    n_erreurs_type: 2.0
+    priorite_physique: [mld_hiver, sst_amp]
+
+clustering:
+  k_retenu: 6
+  k_structure_dominante: 2
+  n_classes_scan: [2, 12]
+  candidats: [2, 5, 6, 8]
+  gmm_covariance: [full, diag, tied]
+  gmm_n_init: 20
+  som_grille: [10, 10]
+  random_state: 42
+  regle_selection: "au moins 3 critères sur 4 convergents"
+
+decoupage_administratif:
+  limites: [1.3, 5.1]
+  noms: [Ouest, Centre, Est]
+  variantes:
+    - [0.0, 5.0]
+    - [1.3, 5.1]
+    - [2.0, 6.0]
+
+robustesse:
+  bootstrap_n: 500
+  ablation: true
+  moran_I: true
+
+figures:
+  dpi: 400
+  formats: [pdf, png]
+  mode: latex
+  police: DejaVu Sans
+  largeurs_cm:
+    pleine: 15.5
+    deux_tiers: 10.3
+    demi: 7.5
+  corps:
+    titre: 10
+    axes: 9
+    graduations: 8
+    annotations: 7.5
+  poids_cible_mo: 3.0
+  tolerance_frontiere_maille: 0.5
+
+rattachement:
+  reference_afrique: [3.0, 34.7]
+  seuil_ile_km2: 50
+  restreindre_comparaison_administrative: true
+
+analyse:
+  marge: sud
+  isobathe: null
+  attache_cote_km: 15
+  isobathes_test: [1000, 1500, 2000, 2500]
+
+unites:
+  familles:
+    plateau: [1, 2]
+    bas_talus: [3, 5, 6, 4]
+  noms:
+    1: Plateau occidental et central
+    2: Plateau oriental
+    3: Secteur du large du front Almería-Oran
+    4: Approches du canal de Sardaigne
+    5: Cœur du Courant Algérien
+    6: Talus central et oriental
+  signatures:
+    1: "182 m · 14,4 km · SSS -0,99 · SST amp -0,98 · EKE -0,84 · SHAP profondeur"
+    2: "254 m · 17,7 km · EKE -1,40 · SSS +0,89 · MLD hiver +0,94 · SHAP eke"
+    3: "1461 m · 55,0 km du rivage · MLD hiver -1,29 · EKE +0,84 · SHAP vitesse"
+    4: "1537 m · SSS +2,02 · amplitude SSS +2,04 · v -1,50 · SHAP salinite"
+    5: "1577 m · v +1,67 · u +1,62 · stationnarite +1,45 · front +1,08 · SHAP v"
+    6: "1708 m · 743 points (32,8 %) · stationnarite -0,77 · SHAP profondeur"
+
+carto:
+  isobathes: [200, 1000, 2000]
+  isobathe_limite: 2500
+  resolution_traits: 10m
+  pas_lon: 2
+  pas_lat: 1
+  echelle_km: 100

@@ -1,0 +1,5 @@
+mode,part_tel_quel,part_detendance,ecart,sensibilite_remplissage_zero,sensibilite_sans_ponderation
+EOF1,0.5302,0.3325,-0.1977,0.5318,0.5318
+EOF2,0.0511,0.0731,0.0221,0.0511,0.0511
+EOF3,0.0449,0.0650,0.0201,0.0442,0.0442
+EOF4,0.0342,0.0492,0.0150,0.0341,0.0341

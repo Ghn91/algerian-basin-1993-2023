@@ -1,0 +1,21 @@
+{
+  "mailles_de_mer_allsat_0125": 3221,
+  "blocs_complets": 766,
+  "blocs_partiels_ecartes": 81,
+  "mailles_de_mer_twosat_025": 841,
+  "mailles_du_domaine_commun": 766,
+  "mois": 372,
+  "variable_comparee": "ugosa/vgosa — anomalies, l'ALL-SAT telecharge ne portant pas ugos/vgos",
+  "correlations_des_series": {
+    "allsat_0125_allsat_025": 0.999349,
+    "allsat_0125_twosat_025": 0.71307,
+    "allsat_025_twosat_025": 0.727868
+  },
+  "rapport_constellation_min": 0.693254,
+  "rapport_constellation_max": 1.280885,
+  "bloc_mois": 24,
+  "tirages_bootstrap": 1000,
+  "couverture_mesuree_sous_le_nul": 0.8417,
+  "r1_moyen_des_series": 0.805996,
+  "graine": 20261005
+}

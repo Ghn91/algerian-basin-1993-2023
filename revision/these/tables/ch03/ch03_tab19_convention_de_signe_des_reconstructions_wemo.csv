@@ -1,0 +1,4 @@
+reconstruction,verdict,r_contre_arbitre,valeur_absolue,n_mois,seuil_indetermination,premier_mois,dernier_mois
+article,inversee,-0.8739,0.8739,252,0.1618,1993-01,2013-12
+these,conforme,0.7773,0.7773,252,0.1618,1993-01,2013-12
+ecart de qualite,article meilleur,0.0966,0.0966,252,0.1618,1993-01,2013-12

@@ -1,0 +1,24 @@
+balayage,k,critere,maximum_du_balayage,a_la_borne_du_balayage,maximum_local,marge_au_voisin
+depot public (3-6),3,9442.645905,non,oui,non,-1084.500318
+depot public (3-6),4,10527.146223,non,non,non,-438.493765
+depot public (3-6),5,10965.639987,non,non,non,-90.474387
+depot public (3-6),6,11056.114375,oui,oui,oui,90.474387
+large (2-20),2,9544.641838,non,oui,oui,101.995933
+large (2-20),3,9442.645905,non,non,non,-1084.500318
+large (2-20),4,10527.146223,non,non,non,-438.493765
+large (2-20),5,10965.639987,non,non,non,-90.474387
+large (2-20),6,11056.114375,non,non,non,-538.128502
+large (2-20),7,11594.242877,non,non,non,-3.853707
+large (2-20),8,11598.096584,non,non,non,-136.885323
+large (2-20),9,11734.981907,oui,non,oui,136.885323
+large (2-20),10,11522.905995,non,non,non,-212.075911
+large (2-20),11,11454.465615,non,non,non,-105.664343
+large (2-20),12,11560.129957,non,non,oui,20.431230
+large (2-20),13,11539.698727,non,non,non,-27.600476
+large (2-20),14,11567.299203,non,non,oui,27.600476
+large (2-20),15,11510.558236,non,non,non,-56.740967
+large (2-20),16,11534.281070,non,non,non,-15.810969
+large (2-20),17,11550.092039,non,non,non,-33.776333
+large (2-20),18,11583.868372,non,non,oui,32.370283
+large (2-20),19,11551.498089,non,non,non,-32.370283
+large (2-20),20,11576.668641,non,oui,oui,25.170552

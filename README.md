@@ -1,38 +1,42 @@
-# Surface circulation variability in the Algerian Basin (1993–2023)
+# Thirty years of surface circulation variability in the Algerian Basin (1993–2023)
 
-Analysis code for:
+Code, derived data and outputs of the study by **A. Nedjar, L. Nacef, F. Houma
+and N.E.I. Bachari** (LOBEM, FSB, USTHB, Algiers; ECOSYSMarL, ENSSMAL, Algiers),
+submitted to *Regional Studies in Marine Science*.
 
-Nedjar A., Nacef L., Houma F., Bachari N.E.I. Thirty years of surface
-circulation variability in the Algerian Basin (1993–2023): mesoscale
-energy trends, dominant modes, dynamic zonation, and eddy statistics
-from multi-source satellite and reanalysis records. Regional Studies in
-Marine Science.
+**Version 1.1** accompanies the revised manuscript. Version 1.0 accompanied the
+submitted manuscript and remains available from the same Zenodo record
+(doi:10.5281/zenodo.21420127); the differences are listed in
+[CHANGELOG.md](CHANGELOG.md).
+
+## Contents
+
+```
+src/                 scripts of the original analysis (v1.0), with the
+                     corrections listed in CHANGELOG.md
+extras/              diagnostics and animation of the original analysis
+revision/            scripts, derived inputs and outputs of the revised
+                     analysis; see revision/README.md
+MANIFEST.csv         every file of this version, its size, SHA-256 and origin
+```
+
+The exploratory notebooks of the original analysis are part of version 1.0.
 
 ## Data
 
-All datasets are publicly available (CMEMS, C3S, ERA5, NOAA CPC). Dataset
-identifiers and the download commands are listed in `data/README.md`.
-After downloading, set the folder in `config.py` (`DATA_DIR`).
+Files larger than 50 MB are not stored. All datasets are public: Copernicus
+Marine Service, Copernicus Climate Change Service, ERA5 (Copernicus Climate
+Data Store), the NOAA Climate Prediction Center and the Climatic Research Unit
+(University of East Anglia). Download scripts: `src/00_download_data.py`,
+`revision/revision_2026/download_altimetry.py` and
+`revision/revision_2026/download_era5.py`. Scripts that need the large files
+read their location from the environment variable `ABASIN_DATA` or from a
+command-line option.
 
-## Environment
+## Licence
 
-    conda env create -f environment.yml     # or: pip install -r requirements.txt
+MIT; see [LICENSE](LICENSE).
 
-## Scripts
+## Contact
 
-`src/`
-
-    00_download_data.py        download the CMEMS / C3S datasets
-    fig02_mean_circulation.py  Figure 2
-    fig03_eke_timeseries.py    Figure 3
-    fig04_trend_wavelet.py     Figure 4  (Mann-Kendall / Sen + wavelet)
-    fig05_eof.py               Figure 5  (EOF / PC modes)
-    fig06_zonation.py          Figure 6  (Ward clustering + divergence)
-    fig07_eddy_atlas.py        Figure 7  (eddy atlas)
-    fig08_wemo_era5_crosscorr.py  Figure 8  (WeMO–EKE cross-correlation)
-    eddy_detection.py          eddy detection (py-eddy-tracker)
-    eddy_catalogue_stats.py    eddy catalogue + Table 1
-    analysis_pettitt.py        Pettitt change-point test
-    analysis_wemo_nao_ub.py    WeMO / NAO cross-correlation
-
-The study-area map (Figure 1) is produced with a separate script.
+Abdelghani Nedjar, abdelghani.nedjar91@gmail.com

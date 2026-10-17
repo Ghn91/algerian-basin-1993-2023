@@ -1,0 +1,36 @@
+{
+  "definition_de_la_cote": "composante connexe de terre touchant le bord sud du domaine — aucune latitude",
+  "temoins": {
+    "dans_l_afrique": [
+      35.3,
+      3.0
+    ],
+    "hors_afrique": [
+      40.5,
+      0.0
+    ]
+  },
+  "mailles_de_terre_africaine": 11432,
+  "points_africains_par_rayon": {
+    "25": 381,
+    "40": 381,
+    "60": 381,
+    "90": 381,
+    "120": 381,
+    "150": 381
+  },
+  "emprise_de_la_cote_africaine": {
+    "lon_min": -5.0,
+    "lon_max": 10.0
+  },
+  "ce_que_la_cote_contient": "le littoral marocain a l'ouest, l'Algerie au centre, la Tunisie du nord a l'est — une frontiere politique n'est pas une frontiere oceanographique",
+  "bandes": {
+    "largeur_deg": 1.0,
+    "peuplees": 15,
+    "effectif_min": 24,
+    "effectif_max": 28,
+    "etendue_lat_min": 0.0833,
+    "etendue_lat_max": 0.5833
+  },
+  "mois": 372
+}

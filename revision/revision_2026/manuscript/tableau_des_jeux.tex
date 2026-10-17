@@ -1,0 +1,45 @@
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Provenance of the datasets used in this study. Product identifiers, versions, providers and digital object identifiers are those published by the data providers' own catalogues, retrieved from the Copernicus Marine Service and Climate Data Store catalogue interfaces rather than transcribed. The last two entries were retrieved but are not used in this study (Section~\ref{sec:hca}).}
+  \label{tab:datasets-provenance}
+  \begin{tabular}{@{}p{3.0cm}p{5.1cm}p{1.3cm}p{2.1cm}p{3.0cm}@{}}
+    \toprule
+    Dataset & Product or collection identifier & Version & Provider & DOI \\
+    \midrule
+    ALL-SAT altimetry & \texttt{SEALEVEL\_GLO\_PHY\_L4\_MY\_008\_047} & 202411 & CLS (France) & 10.48670/moi-00148 \\
+    Biogeochemical reanalysis & \texttt{MEDSEA\_MULTIYEAR\_BGC\_006\_008} & 202511 & OGS (Italy) & 10.25423/CMCC/MEDSEA\_MULTIYEAR\_BGC\_006\_008\_MEDBFM3I \\
+    ERA5 atmospheric reanalysis & \texttt{reanalysis-era5-single-levels-monthly-means} & n/a & Copernicus Climate Change Service (C3S) & 10.24381/cds.f17050d7 \\
+    MEDSEA physical reanalysis & \texttt{MEDSEA\_MULTIYEAR\_PHY\_006\_004} & 202511 & CMCC (Italy) & 10.48670/mds-00375 \\
+    Mean dynamic topography & \texttt{SEALEVEL\_EUR\_PHY\_MDT\_L4\_STATIC\_008\_070} & 202411 & CLS (France) & 10.48670/mds-00337 \\
+    Satellite sea surface temperature & \texttt{SST\_MED\_SST\_L4\_REP\_OBSERVATIONS\_010\_021} & 202411 & CNR (Italy) & 10.48670/moi-00173 \\
+    TWO-SAT altimetry & \texttt{c3s\_obs-sl\_glo\_phy-ssh\_my\_twosat-l4-duacs-0.25deg\_P1D} & n/a & Copernicus Climate Change Service (C3S) & 10.24381/cds.4c328c78 \\
+    \midrule
+    GLORYS12 global reanalysis & \texttt{GLOBAL\_MULTIYEAR\_PHY\_001\_030} & 202311 & Mercator Ocean International & 10.48670/moi-00021 \\
+    In situ observations & \texttt{INSITU\_MED\_PHYBGCWAV\_DISCRETE\_MYNRT\_013\_035} & 202311 & HCMR (Greece) & 10.48670/moi-00044 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \caption{Spatial and temporal resolution, period, variables and vertical level of the data actually extracted for each dataset. Grid spacings are those of the coordinate axes of the retrieved files, each computed as the extent of the axis divided by its number of intervals, and agree with the providers' dataset-level declarations; where the two axes of a product are not equally spaced, both are given, which is why some entries differ slightly from the single nominal figure quoted in the product catalogues. Periods are those of the data retrieved; variables are those retrieved, under the names they carry in the downloaded files, and of the MEDSEA physical reanalysis only the velocity components enter the analyses of this paper. Vertical levels quoted as nominal values are rounded for display; the model level depths are \num{1.0182366371154785}~m for the Mediterranean reanalyses and \num{0.49402499198913574}~m for the global one.}
+  \label{tab:datasets-usage}
+  \begin{tabular}{@{}p{2.6cm}p{1.6cm}p{1.5cm}p{1.9cm}p{3.1cm}p{3.0cm}@{}}
+    \toprule
+    Dataset & Grid & Cadence & Period used & Variables & Vertical level \\
+    \midrule
+    ALL-SAT altimetry & \num{0.125}\textdegree{} & daily & 1993-01-01--2023-12-31 & \texttt{adt}, \texttt{err\_sla}, \texttt{sla}, \texttt{ugos}, \texttt{ugosa}, \texttt{vgos}, \texttt{vgosa} & sea surface \\
+    Biogeochemical reanalysis & \num{0.0417}\textdegree{} & daily & 1999-01-01--2023-12-31 & \texttt{o2}, \texttt{no3}, \texttt{po4}, \texttt{chl}, \texttt{phyc} & first model level, nominally \num{1.02}~m \\
+    ERA5 atmospheric reanalysis & \num{0.25}\textdegree{} & monthly & 1993-01-01--2023-12-01 & \texttt{msl}, \texttt{avg\_iews}, \texttt{avg\_inss}, \texttt{u10}, \texttt{v10} & sea surface \\
+    MEDSEA physical reanalysis & \num{0.0417}\textdegree{} & daily & 1993-01-01--2023-12-31 & \texttt{uo}, \texttt{vo}, \texttt{mlotst}, \texttt{so}, \texttt{zos}, \texttt{thetao} & first model level, nominally \num{1.02}~m ; sea surface \\
+    Mean dynamic topography & \num{0.0625}\textdegree{} & Multi-yearly & 2003-01-01--2003-01-01 & \texttt{mdt}, \texttt{u}, \texttt{v} & sea surface \\
+    Satellite sea surface temperature & \num{0.05} $\times$ \num{0.0502}\textdegree{} & daily & 1993-01-01--2023-12-31 & \texttt{analysed\_sst}, \texttt{analysis\_error} & sea surface \\
+    TWO-SAT altimetry & \num{0.25}\textdegree{} & daily & 1993-01-01--2023-12-31 & \texttt{adt}, \texttt{sla}, \texttt{tpa\_correction}, \texttt{ugos}, \texttt{vgos}, \texttt{ugosa}, \texttt{vgosa} & sea surface \\
+    \midrule
+    GLORYS12 global reanalysis & \num{0.0833}\textdegree{} & daily & 1993-01-01--2023-12-31 & \texttt{mlotst}, \texttt{so}, \texttt{thetao}, \texttt{uo}, \texttt{vo}, \texttt{zos} & first model level, nominally \num{0.49}~m \\
+    In situ observations & not gridded (individual profiles) & Instantaneous & 2020-01-01--2023-12-31 & \texttt{TEMP}, \texttt{PSAL}, \texttt{DOXY} & \num{-20} to \num{20}~m, that is at most the uppermost \num{20}~m \\
+    \bottomrule
+  \end{tabular}
+\end{table}

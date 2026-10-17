@@ -1,0 +1,17 @@
+grandeur,valeur
+tirages,20
+graine,32
+borne_bruit_u_m_s,2.045849e-06
+borne_bruit_v_m_s,9.930853e-07
+part_six_classes,0.600000
+part_critere_croissant,0.150000
+temoin_float64_sans_bruit_classes,6
+temoin_float64_sans_bruit_rand_ajuste,1.000000
+rand_ajuste_min,0.230047
+rand_ajuste_mediane,0.369514
+rand_ajuste_max,0.690708
+part_rand_ajuste_egal_a_un,0.000000
+part_3_classes,0.000000
+part_4_classes,0.100000
+part_5_classes,0.300000
+part_6_classes,0.600000

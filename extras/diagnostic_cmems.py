@@ -1,7 +1,17 @@
-# Inventory of the local NetCDF files
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Diagnostic: inventory of all local NetCDF files.
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 """
 DIAGNOSTIC — Inspecte tous vos fichiers NetCDF CMEMS

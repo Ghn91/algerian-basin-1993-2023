@@ -1,0 +1,11 @@
+grandeur,valeur
+periode_courants,1993-01-01 -> 2023-12-31
+periode_sst,1993-01-01 -> 2023-12-31
+periode_chl,1999-01-01 -> 2023-12-31
+n_mois_chl,300
+unite_sst_source,kelvin
+unite_chl,mg m-3
+detections_anticyclone_hors_zone,0
+detections_cyclone_hors_zone,0
+eke_source,c3s_obs-sl_glo_phy-ssh_my_twosat-l4-duacs-0.25deg_P1D_multi-vars_4.88W-9.88E_35.12N-40.88N_1993-01-01-2023-12-31_(1).nc
+profondeur_source,gebco_2026.nc

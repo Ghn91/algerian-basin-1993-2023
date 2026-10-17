@@ -1,0 +1,72 @@
+{
+  "source": "data/raw/medsea_sst-l4_1993-2024.nc",
+  "produit": "cmems_SST_MED_SST_L4_REP_OBSERVATIONS_010_021, 0,05°, journalier, GAP-FREE donc RECONSTRUIT",
+  "emprise_sst": {
+    "sud": 34.53887939453125,
+    "nord": 39.45433807373047,
+    "ouest": -2.961075782775879,
+    "est": 9.950780868530273
+  },
+  "definition_de_la_cote": "composantes connexes de la terre touchant le bord sud (ekman_african_coast) — aucune latitude",
+  "points_de_cote_africains": 381,
+  "points_de_cote_du_domaine": 902,
+  "points_de_cote_dedans": 327,
+  "points_de_cote_dehors": 54,
+  "mailles_sst_valides": 13028,
+  "bandes_cote_km": [
+    [
+      0.0,
+      15.0
+    ],
+    [
+      0.0,
+      25.0
+    ],
+    [
+      0.0,
+      40.0
+    ]
+  ],
+  "bandes_large_km": [
+    [
+      60.0,
+      120.0
+    ],
+    [
+      75.0,
+      150.0
+    ],
+    [
+      100.0,
+      200.0
+    ]
+  ],
+  "signe_attendu": -1,
+  "test_spatial": {
+    "paire_de_distances": [
+      [
+        0.0,
+        25.0
+      ],
+      [
+        75.0,
+        150.0
+      ]
+    ],
+    "largeurs_de_bande_deg": [
+      1.0,
+      0.5
+    ],
+    "bandes_par_largeur": {
+      "1": 15,
+      "0.5": 30
+    },
+    "plancher_par_largeur": {
+      "1": 0.066667,
+      "0.5": 0.033333
+    },
+    "prediction": "l'anomalie froide d'ete doit etre plus marquee entre 0 et +7 E, ou l'indice d'Ekman d'ete est positif sur sept bandes contigues",
+    "temoin": "decalage circulaire des bandes, qui CONSERVE la contiguite — les rebattre la detruirait et rendrait un plancher optimiste"
+  },
+  "mois": 372
+}

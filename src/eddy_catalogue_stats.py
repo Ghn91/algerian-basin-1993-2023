@@ -1,7 +1,17 @@
-# Assemble the eddy catalogue and compute Table 1 statistics
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Assemble the eddy catalogue; verification and Table 1 statistics.
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 import pandas as pd
 import numpy as np
@@ -126,7 +136,7 @@ print("="*60)
 import pandas as pd
 import numpy as np
 
-EDDY_DIR = r"C:\Users\kikk\CLAUDE ARTICLE DATA\EDDIES"
+EDDY_DIR = os.path.join(os.environ.get("ABASIN_DATA", "data"), "EDDIES")
 
 df_a = pd.read_csv(EDDY_DIR + r"\anticyclones_1993_2023_ALL.csv")
 df_c = pd.read_csv(EDDY_DIR + r"\cyclones_1993_2023_ALL.csv")

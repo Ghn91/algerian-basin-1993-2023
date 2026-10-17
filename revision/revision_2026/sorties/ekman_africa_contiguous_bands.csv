@@ -1,0 +1,7 @@
+saison,signe,bandes_de_ce_signe,plus_longue_plage,lon_debut,lon_fin
+annuel,positif,0,0,,
+annuel,negatif,15,15,-5.0,+10.0
+ete,positif,9,7,+0.0,+7.0
+ete,negatif,6,3,+7.0,+10.0
+hiver,positif,0,0,,
+hiver,negatif,15,15,-5.0,+10.0

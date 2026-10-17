@@ -1,7 +1,17 @@
-# Mesoscale eddy detection with py-eddy-tracker
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Mesoscale eddy detection 1993-2023 with py-eddy-tracker (daily ADT).
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 import xarray as xr
 import numpy as np

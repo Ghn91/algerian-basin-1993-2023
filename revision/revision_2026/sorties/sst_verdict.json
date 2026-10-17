@@ -1,0 +1,29 @@
+{
+  "couples_de_bandes": 9,
+  "signe_conforme_en_ete_retard_0": 9,
+  "r_ete_retard_0": [
+    -0.472189,
+    -0.45637,
+    -0.389072,
+    -0.425393,
+    -0.414117,
+    -0.344815,
+    -0.37783,
+    -0.371076,
+    -0.297242
+  ],
+  "p_ete_retard_0": [
+    2e-06,
+    4e-06,
+    0.000116,
+    2.1e-05,
+    3.7e-05,
+    0.000712,
+    0.000189,
+    0.00025,
+    0.003811
+  ],
+  "r1_anomalie_indice": 0.216082,
+  "signe_attendu": -1,
+  "puissance": "trente-et-un etes, donc un effectif de trente par mois civil : une correlation de faible amplitude ne serait pas detectable, et l'absence de signature ne contredirait pas l'indice"
+}

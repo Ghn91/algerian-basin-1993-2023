@@ -1,0 +1,7 @@
+grandeur,minimum,maximum,signe_constant,signe
+"annuel, cote africaine, six rayons",-0.637776,-0.605587,oui,negatif
+"ete, cote africaine, six rayons",0.065588,0.083982,oui,positif
+"hiver, cote africaine, six rayons",-1.362314,-1.281085,oui,negatif
+"annuel, par bande de longitude, rayon de reference",-1.188761,-0.328629,oui,negatif
+"ete, par bande de longitude, rayon de reference",-0.431705,0.547192,non,variable
+"hiver, par bande de longitude, rayon de reference",-2.472903,-0.693861,oui,negatif

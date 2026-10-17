@@ -1,7 +1,17 @@
-# Figure 8 - WeMO reconstruction and WeMO-EKE cross-correlation
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Figure 8 - ERA5 WeMO reconstruction and WeMO/EKE cross-correlation.
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 """
 EXTENSION WeMO 1993–2023 DEPUIS ERA5
@@ -57,7 +67,7 @@ def download_era5_mslp():
     Télécharge ERA5 MSLP mensuel 1993–2023 via CDS API.
     Fichier ~50 Mo. Requiert un compte CDS gratuit.
 
-    Créer le fichier C:\\Users\\kikk\\.cdsapirc avec :
+    Create the file ~/.cdsapirc with:
         url: https://cds.climate.copernicus.eu/api/v2
         key: VOTRE_UID:VOTRE_API_KEY
     Obtenir uid+key sur : https://cds.climate.copernicus.eu/user/register
@@ -201,7 +211,9 @@ def compute_wemo_index(era5_file):
         p_pa_std[idx] = (p_pa[idx] - p_pa[idx].mean()) / (p_pa[idx].std() + 1e-12)
 
     # ─── Indice WeMO ─────────────────────────────────────────────
-    wemo     = p_pa_std - p_sf_std
+    # v1.1: canonical sign, San Fernando minus Padua
+    # (Martin-Vide and Lopez-Bustins, 2006); v1.0 computed the opposite.
+    wemo     = p_sf_std - p_pa_std
     wemo_std = (wemo - wemo.mean()) / (wemo.std() + 1e-12)
 
     print(f"  WeMO calcule : {n} mois  mean={wemo_std.mean():.4f}  std={wemo_std.std():.4f}")
@@ -338,7 +350,7 @@ def make_wemo_figure(lags, corrs, pvals, wemo, time_wemo,
         bbox=dict(boxstyle='round,pad=0.3', fc='white',
                   ec='#185FA5', alpha=0.92, lw=0.6)
     )
-    ax2.set_xlabel('Lag WeMO → EKE (months; negative = WeMO leads EKE)', fontsize=9)
+    ax2.set_xlabel('Lag (months; positive = WeMO leads EKE)', fontsize=9)
     ax2.set_ylabel('Pearson r', fontsize=9)
     ax2.set_xlim(-max(abs(lags))-0.5, max(abs(lags))+0.5)
     ax2.set_ylim(-0.42, 0.42)
@@ -383,14 +395,14 @@ Supplementary Information for reconstruction validation against
 the published 1993--2013 WeMO record). The zero-lag correlation
 is statistically significant ($r = {r_zero:.3f}$,
 $p = {p_zero:.4f}$), and the maximum cross-correlation is
-reached at a lead of {abs(lag_opt)}~months of the WeMO over the
-EKE anomaly ($r = {r_opt:.3f}$, $p = {p_opt:.5f}$,
+reached at lag~${lag_opt:+d}$~months, a positive lag meaning that
+the WeMO leads ($r = {r_opt:.3f}$, $p = {p_opt:.5f}$,
 lag~$= {lag_opt:+d}$~months, $n = {n}$). The negative sign is
 physically consistent with the proposed mechanism: a negative
 WeMO phase is associated with weakened northerly winds over the
 Algerian Basin, conditions hypothesised to reduce wind-stress
 damping of baroclinic instability and favour positive EKE
-anomalies approximately {abs(lag_opt)}~months later. Significant
+anomalies at the lag of the maximum, whose sign is given above. Significant
 correlations ($p < 0.05$) are sustained across lags from
 ${sig_lags[0]:+d}$ to ${sig_lags[-1]:+d}$~months, indicating a
 robust and persistent ocean response to the WeMO signal. This

@@ -1,7 +1,17 @@
-# Figure 3 - basin-averaged EKE time series (ALL-SAT)
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Figure 3 - basin-averaged EKE time series, seasonal cycle, anomaly (ALL-SAT).
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 import xarray as xr
 import numpy as np
@@ -10,7 +20,6 @@ import matplotlib.ticker as mticker
 import matplotlib.gridspec as gridspec
 import matplotlib.dates as mdates
 from scipy.ndimage import uniform_filter1d
-import pymannkendall as mk
 import os, warnings
 warnings.filterwarnings('ignore')
 

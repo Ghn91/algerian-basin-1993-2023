@@ -1,7 +1,17 @@
-# Figure 4 - Mann-Kendall / Sen trend and Morlet wavelet (TWO-SAT)
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from config import DATA_DIR, BASE
+"""
+Figure 4 - Mann-Kendall / Sen trend + Morlet wavelet (TWO-SAT).
+
+Part of the reproducibility archive for:
+Nedjar, Nacef, Houma & Bachari (in prep.), "Thirty years of surface
+circulation variability in the Algerian Basin (1993-2023)",
+Regional Studies in Marine Science.
+
+Data root and derived paths come from config.py (edit DATA_DIR there,
+or set the ABASIN_DATA environment variable).
+"""
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATA_DIR, BASE  # noqa: F401
 
 import xarray as xr
 import numpy as np
@@ -293,7 +303,10 @@ dashed lines indicate reference periodicities. The dominant spectral peak
 at 73 months (~6.1 years) is annotated.
 """)
 
-# 95% confidence interval on Sen's slope (Theil-Sen)
+# ---------------------------------------------------------------------------
+# 95% confidence interval for Sen's slope (Theil-Sen), reported in the paper
+# as +2.06 cm2/s2/decade (95% CI: +0.65 to +3.50).  Self-contained.
+# ---------------------------------------------------------------------------
 if __name__ == "__main__":
     import xarray as _xr, numpy as _np
     from scipy.stats import theilslopes as _ts

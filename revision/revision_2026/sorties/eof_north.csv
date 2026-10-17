@@ -1,0 +1,37 @@
+champ,traitement,ponderation,paire,ecart_des_parts,erreur_de_north,distinguables,marge
+allsat_0125,tel quel,ponderee,EOF1/EOF2,0.483276,0.097613,oui,0.385664
+allsat_0125,tel quel,ponderee,EOF2/EOF3,0.013936,0.012780,oui,0.001155
+allsat_0125,tel quel,ponderee,EOF3/EOF4,0.003486,0.009724,non,-0.006238
+allsat_0125,tel quel,sans poids,EOF1/EOF2,0.484420,0.097805,oui,0.386615
+allsat_0125,tel quel,sans poids,EOF2/EOF3,0.013950,0.012789,oui,0.001161
+allsat_0125,tel quel,sans poids,EOF3/EOF4,0.003620,0.009674,non,-0.006054
+allsat_0125,tendance retiree,ponderee,EOF1/EOF2,0.274191,0.039206,oui,0.234985
+allsat_0125,tendance retiree,ponderee,EOF2/EOF3,0.019567,0.019041,oui,0.000526
+allsat_0125,tendance retiree,ponderee,EOF3/EOF4,0.007249,0.013867,non,-0.006618
+allsat_0125,tendance retiree,sans poids,EOF1/EOF2,0.275325,0.039364,oui,0.235960
+allsat_0125,tendance retiree,sans poids,EOF2/EOF3,0.019634,0.019039,oui,0.000594
+allsat_0125,tendance retiree,sans poids,EOF3/EOF4,0.007553,0.013809,non,-0.006256
+allsat_025,tel quel,ponderee,EOF1/EOF2,0.491574,0.099109,oui,0.392465
+allsat_025,tel quel,ponderee,EOF2/EOF3,0.013749,0.012749,oui,0.001000
+allsat_025,tel quel,ponderee,EOF3/EOF4,0.003589,0.009740,non,-0.006151
+allsat_025,tel quel,sans poids,EOF1/EOF2,0.492716,0.099299,oui,0.393416
+allsat_025,tel quel,sans poids,EOF2/EOF3,0.013747,0.012758,oui,0.000989
+allsat_025,tel quel,sans poids,EOF3/EOF4,0.003727,0.009696,non,-0.005970
+allsat_025,tendance retiree,ponderee,EOF1/EOF2,0.281315,0.040040,oui,0.241275
+allsat_025,tendance retiree,ponderee,EOF2/EOF3,0.019422,0.019138,oui,0.000284
+allsat_025,tendance retiree,ponderee,EOF3/EOF4,0.007658,0.013973,non,-0.006315
+allsat_025,tendance retiree,sans poids,EOF1/EOF2,0.282465,0.040200,oui,0.242264
+allsat_025,tendance retiree,sans poids,EOF2/EOF3,0.019462,0.019138,oui,0.000324
+allsat_025,tendance retiree,sans poids,EOF3/EOF4,0.008003,0.013924,non,-0.005921
+twosat_025,tel quel,ponderee,EOF1/EOF2,0.461600,0.104248,oui,0.357353
+twosat_025,tel quel,ponderee,EOF2/EOF3,0.007111,0.012842,non,-0.005731
+twosat_025,tel quel,ponderee,EOF3/EOF4,0.011733,0.012695,non,-0.000962
+twosat_025,tel quel,sans poids,EOF1/EOF2,0.463315,0.104585,oui,0.358730
+twosat_025,tel quel,sans poids,EOF2/EOF3,0.007884,0.012852,non,-0.004967
+twosat_025,tel quel,sans poids,EOF3/EOF4,0.010997,0.012522,non,-0.001525
+twosat_025,tendance retiree,ponderee,EOF1/EOF2,0.247084,0.040525,oui,0.206559
+twosat_025,tendance retiree,ponderee,EOF2/EOF3,0.009402,0.018585,non,-0.009183
+twosat_025,tendance retiree,ponderee,EOF3/EOF4,0.016978,0.018076,non,-0.001097
+twosat_025,tendance retiree,sans poids,EOF1/EOF2,0.248455,0.040731,oui,0.207724
+twosat_025,tendance retiree,sans poids,EOF2/EOF3,0.010570,0.018628,non,-0.008058
+twosat_025,tendance retiree,sans poids,EOF3/EOF4,0.015905,0.017848,non,-0.001943

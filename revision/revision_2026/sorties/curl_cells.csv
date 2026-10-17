@@ -1,0 +1,7 @@
+indice,retard_mois,latitude,longitude,r,seuil_de_r,n_effectif,role
+wemo,0,39.00,9.50,-0.740635,0.101700,371.986336,maille de |r| maximal en mer
+wemo,1,35.75,-5.00,-0.128994,0.101835,371.000000,maille de |r| maximal en mer
+mo,0,35.25,-1.75,-0.745631,0.108924,324.355408,maille de |r| maximal en mer
+mo,1,35.25,-4.25,-0.313061,0.108982,324.009184,maille de |r| maximal en mer
+nao,0,36.75,-3.75,0.458189,0.108996,323.927822,maille de |r| maximal en mer
+nao,1,35.50,-4.75,-0.227598,0.108686,325.774722,maille de |r| maximal en mer
