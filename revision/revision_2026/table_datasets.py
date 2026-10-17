@@ -170,7 +170,7 @@ def agreger(valeurs):
             x = x.strip()
             if x and x not in out:
                 out.append(x)
-    return " ; ".join(out)
+    return "; ".join(out)
 
 
 def periode_lisible(extraits, recus, fiche):
@@ -260,7 +260,7 @@ def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
                     agreger([y.get("variables_portees") for y in rs])
                     or agreger([y.get("variables_extraites") for y in xs])
                 ),
-                "niveau": " ; ".join(
+                "niveau": "; ".join(
                     dict.fromkeys(
                         [
                             niveau_lisible(
@@ -285,11 +285,32 @@ def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
     return prov, usage, defauts
 
 
+def ident(s):
+    s = str(s)
+    if not s or s == "---":
+        return "---"
+    for c in "{}%#\\":
+        if c in s:
+            raise ValueError(
+                f"caractere non pris en charge dans un identifiant : {s!r}"
+            )
+    return r"\nolinkurl{" + s + "}"
+
+
+def ligne(cellules):
+    return (
+        "    "
+        + " & ".join(r"\raggedright\hspace{0pt}" + c for c in cellules)
+        + r" \tabularnewline"
+    )
+
+
 def tableau_provenance(lignes):
     out = [
         r"\begin{table}[htbp]",
         r"  \centering",
         r"  \footnotesize",
+        r"  \setlength{\tabcolsep}{4pt}",
         r"  \caption{Provenance of the datasets used in this study. "
         r"Product identifiers, versions, providers and digital object "
         r"identifiers are those published by the data providers' own "
@@ -298,10 +319,17 @@ def tableau_provenance(lignes):
         r"transcribed. The last two entries were retrieved but are not "
         r"used in this study (Section~\ref{sec:hca}).}",
         r"  \label{tab:datasets-provenance}",
-        r"  \begin{tabular}{@{}p{3.0cm}p{5.1cm}p{1.3cm}p{2.1cm}" r"p{3.0cm}@{}}",
+        r"  \begin{tabular}{@{}p{2.7cm}p{4.9cm}p{1.2cm}p{2.3cm}p{3.6cm}@{}}",
         r"    \toprule",
-        r"    Dataset & Product or collection identifier & Version "
-        r"& Provider & DOI \\",
+        ligne(
+            [
+                "Dataset",
+                "Product or collection identifier",
+                "Version",
+                "Provider",
+                "DOI",
+            ]
+        ),
         r"    \midrule",
     ]
     statut = None
@@ -310,11 +338,15 @@ def tableau_provenance(lignes):
             out.append(r"    \midrule")
         statut = l["statut"]
         out.append(
-            f"    {echapper(l['court'])} & "
-            f"\\texttt{{{echapper(l['identifiant'])}}} & "
-            f"{echapper(l['version']) or '---'} & "
-            f"{echapper(l['fournisseur'])} & "
-            f"{echapper(l['doi']) or '---'} \\\\"
+            ligne(
+                [
+                    echapper(l["court"]),
+                    ident(l["identifiant"]),
+                    echapper(l["version"]) or "---",
+                    echapper(l["fournisseur"]),
+                    ident(l["doi"]) if l["doi"] else "---",
+                ]
+            )
         )
     out += [r"    \bottomrule", r"  \end{tabular}", r"\end{table}"]
     return "\n".join(out)
@@ -325,6 +357,7 @@ def tableau_usage(lignes):
         r"\begin{table}[htbp]",
         r"  \centering",
         r"  \footnotesize",
+        r"  \setlength{\tabcolsep}{4pt}",
         r"  \caption{Spatial and temporal resolution, period, variables "
         r"and vertical level of the data actually extracted for each "
         r"dataset. Grid spacings are those of the coordinate axes of the "
@@ -337,17 +370,14 @@ def tableau_usage(lignes):
         r"data retrieved; variables are those retrieved, under the names "
         r"they carry in the downloaded files, and of the MEDSEA physical "
         r"reanalysis only the velocity components enter the analyses of "
-        r"this paper. Vertical levels quoted as nominal "
-        r"values are "
-        r"rounded for display; the model level depths are "
-        r"\num{1.0182366371154785}~m for the Mediterranean reanalyses "
-        r"and \num{0.49402499198913574}~m for the global one.}",
+        r"this paper. Model levels are given by the nominal depth of the "
+        r"first level.}",
         r"  \label{tab:datasets-usage}",
-        r"  \begin{tabular}{@{}p{2.6cm}p{1.6cm}p{1.5cm}p{1.9cm}p{3.1cm}"
-        r"p{3.0cm}@{}}",
+        r"  \begin{tabular}{@{}p{2.5cm}p{1.7cm}p{1.7cm}p{1.8cm}p{3.7cm}p{2.9cm}@{}}",
         r"    \toprule",
-        r"    Dataset & Grid & Cadence & Period used & Variables "
-        r"& Vertical level \\",
+        ligne(
+            ["Dataset", "Grid", "Cadence", "Period used", "Variables", "Vertical level"]
+        ),
         r"    \midrule",
     ]
     statut = None
@@ -356,9 +386,16 @@ def tableau_usage(lignes):
             out.append(r"    \midrule")
         statut = l["statut"]
         out.append(
-            f"    {echapper(l['court'])} & {l['grille']} & "
-            f"{echapper(l['cadence'])} & {l['periode']} & "
-            f"{l['variables']} & {l['niveau']} \\\\"
+            ligne(
+                [
+                    echapper(l["court"]),
+                    l["grille"],
+                    echapper(l["cadence"]),
+                    l["periode"],
+                    l["variables"],
+                    l["niveau"],
+                ]
+            )
         )
     out += [r"    \bottomrule", r"  \end{tabular}", r"\end{table}"]
     return "\n".join(out)
