@@ -6,7 +6,7 @@
 
 - `src/fig08_wemo_era5_crosscorr.py`: the WeMO index is computed with its canonical sign (San Fernando minus Padua); v1.0 computed the opposite.
 - `src/fig08_wemo_era5_crosscorr.py`: the lag axis label states the convention the computation uses (a positive lag means that the WeMO leads).
-- `src/fig08_wemo_era5_crosscorr.py`: the generator of a draft manuscript paragraph is removed: it wrote the lag as an absolute value, and interpretive statements that the revised manuscript does not make.
+- `src/fig08_wemo_era5_crosscorr.py`: the generator of a draft manuscript paragraph is removed; it wrote the lag as an absolute value and contained interpretations that were not retained.
 - `src/fig08_wemo_era5_crosscorr.py`: the configuration example in a docstring no longer names a user directory.
 - `src/analysis_pettitt.py`: the generated sentence states significance only when p < 0.05.
 - `src/fig03_eke_timeseries.py`: unused import of pymannkendall removed (the trend line of the figure is a least-squares fit).
