@@ -169,3 +169,4 @@ def construire():
 if __name__ == "__main__":
     if "--construire" in sys.argv:
         sys.exit(construire())
+    print(__doc__)

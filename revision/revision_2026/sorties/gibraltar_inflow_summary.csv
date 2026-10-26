@@ -1,0 +1,15 @@
+couple,n_mois,n_effectif,seuil_nominal,seuil_bonferroni,r_retard_zero,retard_du_maximum,r_au_maximum,retards_nominaux,retards_bonferroni
+wemo_entree,372,370.368122,0.101903,0.169723,0.350053,0,0.350053,-12 -4 0,0
+wemo_net,372,377.373080,0.100952,0.168158,0.204569,1,-0.215418,-17 -12 0 1 20,0 1
+entree_energie_totale,372,307.016224,0.111938,0.186196,0.373705,0,0.373705,-12 -1 0 1 2 5 6 7 14,0 1
+net_energie_totale,372,709.652009,0.073597,0.122944,-0.051380,-1,-0.105879,-24 -14 -1,aucun
+
+grandeur,valeur
+entree_moyenne_sv,0.955146
+net_moyen_sv,0.003741
+longitude_section,-5.333330
+r_reproduit_wemo_energie_totale_plus1,0.230813
+section_longitude_visee,-5.35
+latitude_min,35.8
+latitude_max,36.2
+profondeur_max_m,971.077880859375

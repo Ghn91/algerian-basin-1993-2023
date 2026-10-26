@@ -323,7 +323,7 @@ def produire(chemin_netcdf=NETCDF_DEFAUT):
         }
         if not (max(ecarts) <= TOLERANCE_PUBLIE and ko == PUBLIE["retard"]):
             raise SystemExit(
-                f"\n  REPRODUCTION FAILED (differences {ecarts[0]:.4f} and {ecarts[1]:.4f}); nothing written."
+                f"\n  reproduction failed (differences {ecarts[0]:.4f} and {ecarts[1]:.4f}); nothing written."
             )
 
     lignes_balayage, lignes_verdict = [], []
@@ -515,15 +515,14 @@ def produire(chemin_netcdf=NETCDF_DEFAUT):
         json.dumps(
             {
                 "convention_du_retard": "r(k) = corr(indice[t], eke[t+k]) ; "
-                "k > 0 signifie que l'indice PRECEDE l'EKE",
+                "k > 0 signifie que l'indice precede l'EKE",
                 "convention_de_l_indice": "WeMO = San Fernando moins Padoue "
                 "(definition canonique)",
                 "plan_factoriel": {
                     "definie_au_manuscrit": DU_MANUSCRIT,
                     "calculee_par_sa_figure_8": DE_LA_FIGURE_8,
                     "jeu": "anomalies ugosa/vgosa (equation 1) ou absolues ugos/vgos",
-                    "ordre": "carre au pas quotidien puis moyenne (fig03, § 3.4 a 3.6),"
-                    " ou moyenne mensuelle des vitesses puis carre (fig08)",
+                    "ordre": "carre au pas quotidien puis moyenne (fig03), ou moyenne mensuelle des vitesses puis carre (fig08)",
                     "moyennes_cm2_s2": {
                         k: float(np.mean(list(v.values()))) for k, v in energies.items()
                     },

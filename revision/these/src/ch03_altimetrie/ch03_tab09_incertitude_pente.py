@@ -281,7 +281,7 @@ def produire(
                 "graine_couverture": GRAINE_COUVERTURE,
                 "longueur_retenue_mois": retenu,
                 "verdict": verdict,
-                "note": "la longueur de bloc est fixee par le TAUX DE COUVERTURE "
+                "note": "la longueur de bloc est fixee par le taux de couverture "
                 "mesure, jamais par une regle de pouce ; les deux reperes "
                 "ci-dessus sont publies pour comparaison et ne decident rien",
             },

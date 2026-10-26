@@ -305,9 +305,9 @@ def defauts_du_fichier(
             pass
         return (
             [
-                f"ARCHIVE ZIP portant l'extension .nc — "
+                f"archive ZIP portant l'extension .nc — "
                 f"{len(noms)} fichier(s) dedans : {', '.join(noms)}. "
-                f"Le CDS separe les variables par NATURE ; une requete qui en "
+                f"Le CDS separe les variables par nature ; une requete qui en "
                 f"mele deux rend une archive, non un fichier."
             ],
             None,

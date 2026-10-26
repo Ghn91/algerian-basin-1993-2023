@@ -24,7 +24,7 @@ la période complète 1993–2023 (n=372 mois).
 DÉFINITION WEMO (Martin-Vide & Lopez-Bustins 2006)
   WeMO = P*(Padua) – P*(San Fernando)
   où P* = anomalie de pression normalisée à chaque station
-  → pression réduite au niveau de la mer (MSLP)
+  -> pression réduite au niveau de la mer (MSLP)
 
 STATIONS
   San Fernando : 36.45°N, 6.20°W  (Cadiz, Espagne)
@@ -34,7 +34,6 @@ STATIONS
 ÉTAPE 2 — Calcul indice WeMO mensuel 1993–2023
 ÉTAPE 3 — Corrélation croisée avec EKE TWO-SAT
 ÉTAPE 4 — Figure publication-ready
-ÉTAPE 5 — Valeurs à insérer dans main.tex
 
 DÉPENDANCES
   pip install cdsapi xarray scipy matplotlib cmocean
@@ -50,18 +49,14 @@ from scipy import stats
 import warnings, os
 warnings.filterwarnings('ignore')
 
-# ════════════════════════════════════════════════════════════
 # CHEMINS
-# ════════════════════════════════════════════════════════════
 ERA5_F  = BASE + r"\ERA5_MSLP_1993_2023_monthly.nc"
 EKT_F   = BASE + r"\c3s_obs-sl_glo_phy-ssh_my_twosat-l4-duacs-0.25deg_P1D_multi-vars_4.88W-9.88E_35.12N-40.88N_1993-01-01-2023-12-31.nc"
 OUT_DIR = BASE + r"\FIGURES"
 OUT_FIG = OUT_DIR + r"\Figure_WeMO_EKE_1993_2023.pdf"
 OUT_CSV = BASE + r"\wemo_index_era5_1993_2023.csv"
 
-# ════════════════════════════════════════════════════════════
 # ÉTAPE 1 — TÉLÉCHARGEMENT ERA5 (exécuter une seule fois)
-# ════════════════════════════════════════════════════════════
 def download_era5_mslp():
     """
     Télécharge ERA5 MSLP mensuel 1993–2023 via CDS API.
@@ -90,9 +85,7 @@ def download_era5_mslp():
     print(f"ERA5 MSLP téléchargé : {ERA5_F}")
 
 
-# ════════════════════════════════════════════════════════════
 # ÉTAPE 2 — CALCUL INDICE WeMO MENSUEL
-# ════════════════════════════════════════════════════════════
 def compute_wemo_index(era5_file):
     """
     Calcule l indice WeMO mensuel depuis ERA5.
@@ -101,12 +94,12 @@ def compute_wemo_index(era5_file):
     print("Calcul indice WeMO depuis ERA5...")
     ds = xr.open_dataset(era5_file)
 
-    # ─── Inspection complète du fichier ──────────────────────────
+    # Inspection complète du fichier
     print(f"  Variables   : {list(ds.data_vars)}")
     print(f"  Dimensions  : {dict(ds.dims)}")
     print(f"  Coordonnees : {list(ds.coords)}")
 
-    # ─── Nom de la variable MSL ───────────────────────────────────
+    # Nom de la variable MSL
     msl_var = None
     for candidate in ['msl', 'mean_sea_level_pressure', 'sp', 'slp', 'psl']:
         if candidate in ds.data_vars:
@@ -119,7 +112,7 @@ def compute_wemo_index(era5_file):
     msl = ds[msl_var]
     print(f"  Shape : {msl.shape}  dims : {msl.dims}")
 
-    # ─── Noms des dimensions ──────────────────────────────────────
+    # Noms des dimensions
     lon_name = None
     lat_name = None
     time_name = None
@@ -156,7 +149,7 @@ def compute_wemo_index(era5_file):
         raise ValueError("Dimension time introuvable. "
                          "Dims disponibles : " + str(list(msl.dims)))
 
-    # ─── Extraction time ─────────────────────────────────────────
+    # Extraction time
     time = msl[time_name].values
     if len(time) == 0:
         raise ValueError("La dimension time est vide — "
@@ -169,7 +162,7 @@ def compute_wemo_index(era5_file):
         print(f"  ATTENTION : seulement {len(time)} pas de temps. "
               f"Relancer le telechargement si < 372.")
 
-    # ─── Extraction aux stations ──────────────────────────────────
+    # Extraction aux stations
     # Verifier la plage de longitudes du fichier
     lon_vals = ds[lon_name].values if lon_name in ds.coords else msl[lon_name].values
     lon_min, lon_max = float(lon_vals.min()), float(lon_vals.max())
@@ -193,12 +186,12 @@ def compute_wemo_index(era5_file):
     print(f"  San Fernando ({lon_sf:.1f}E) : {p_sf.mean()/100:.1f} hPa")
     print(f"  Padua        ({lon_pa:.1f}E) : {p_pa.mean()/100:.1f} hPa")
 
-    # ─── Conversion Pa -> hPa ─────────────────────────────────────
+    # Conversion Pa -> hPa
     if p_sf.mean() > 10000:
         p_sf = p_sf / 100.0
         p_pa = p_pa / 100.0
 
-    # ─── Normalisation mensuelle ──────────────────────────────────
+    # Normalisation mensuelle
     months = np.array([int(str(np.datetime64(t, 'M'))[-2:]) for t in time])
     p_sf_std = np.zeros(n)
     p_pa_std = np.zeros(n)
@@ -210,7 +203,7 @@ def compute_wemo_index(era5_file):
         p_sf_std[idx] = (p_sf[idx] - p_sf[idx].mean()) / (p_sf[idx].std() + 1e-12)
         p_pa_std[idx] = (p_pa[idx] - p_pa[idx].mean()) / (p_pa[idx].std() + 1e-12)
 
-    # ─── Indice WeMO ─────────────────────────────────────────────
+    # Indice WeMO
     # v1.1: canonical sign, San Fernando minus Padua
     # (Martin-Vide and Lopez-Bustins, 2006); v1.0 computed the opposite.
     wemo     = p_sf_std - p_pa_std
@@ -221,9 +214,7 @@ def compute_wemo_index(era5_file):
 
 
 
-# ════════════════════════════════════════════════════════════
 # ÉTAPE 3 — EKE TWO-SAT + CORRÉLATION CROISÉE
-# ════════════════════════════════════════════════════════════
 def compute_eke_monthly(sla_file):
     """Charge EKE depuis DUACS TWO-SAT, resample mensuel, basin mean."""
     print("\nChargement EKE TWO-SAT...")
@@ -281,26 +272,24 @@ def cross_correlation_analysis(wemo, time_wemo, eke, time_eke, max_lag=24):
     p_zero  = pvals[lags == 0][0]
     sig_lags = lags[pvals < 0.05]
 
-    print(f"\n  ══ RÉSULTATS CORRÉLATION CROISÉE WeMO–EKE ══")
-    print(f"  Période    : {str(t_min)[:7]} → {str(t_max)[:7]}  (n={n})")
+    print(f"\n  == RÉSULTATS CORRÉLATION CROISÉE WeMO–EKE ==")
+    print(f"  Période    : {str(t_min)[:7]} -> {str(t_max)[:7]}  (n={n})")
     print(f"  lag=0      : r = {r_zero:+.3f}  p = {p_zero:.5f}")
     print(f"  Lag optimal: lag = {lag_opt:+d} mois")
     print(f"  r(lag_opt) : r = {r_opt:+.3f}  p = {p_opt:.5f}")
     print(f"  Lags sig.  : {sig_lags[0]:+d} à {sig_lags[-1]:+d} mois")
-    print(f"  ═════════════════════════════════════════════")
+    print(f"  =============================================")
 
     return lags, corrs, pvals, lag_opt, r_opt, p_opt, r_zero, p_zero, n, sig_lags
 
 
-# ════════════════════════════════════════════════════════════
 # ÉTAPE 4 — FIGURE PUBLICATION-READY
-# ════════════════════════════════════════════════════════════
 def make_wemo_figure(lags, corrs, pvals, wemo, time_wemo,
                      eke, time_eke, lag_opt, r_opt, p_opt, n, out_fig):
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 7), dpi=300)
     fig.patch.set_facecolor('white')
 
-    # ── Panneau 1 : séries temporelles ──
+    # Panneau 1 : séries temporelles
     years_w = np.array([1993 + i/12 for i in range(len(wemo))])
     years_e = np.array([1993 + i/12 for i in range(len(eke))])
     ax1b = ax1.twinx()
@@ -330,7 +319,7 @@ def make_wemo_figure(lags, corrs, pvals, wemo, time_wemo,
     ax1.text(2017, ax1.get_ylim()[1]*0.88, 'ERA5\nextension',
              fontsize=7, color='#185FA5', ha='center')
 
-    # ── Panneau 2 : corrélogramme ──
+    # Panneau 2 : corrélogramme
     sig = pvals < 0.05
     colors = ['#185FA5' if (s and c < 0) else '#D85A30' if (s and c > 0)
               else '#cccccc' for s, c in zip(sig, corrs)]
@@ -370,63 +359,7 @@ def make_wemo_figure(lags, corrs, pvals, wemo, time_wemo,
     plt.close()
 
 
-# ════════════════════════════════════════════════════════════
-# ÉTAPE 5 — TEXTE LATEX PRÊT À COLLER
-# ════════════════════════════════════════════════════════════
-def generate_latex_paragraph(lag_opt, r_opt, p_opt, r_zero, p_zero,
-                              n, sig_lags, out_txt):
-    para = f"""% ═══════════════════════════════════════════════════════════
-% REMPLACER le paragraphe WeMO corrélation dans Section 5.3
-% (remplace l'ancienne version 1993–2013)
-% ═══════════════════════════════════════════════════════════
-
-To move beyond spectral coincidence and formally establish this
-atmospheric--oceanic link over the full altimetric record, the
-Pearson cross-correlation between the monthly basin-averaged
-TWO-SAT EKE anomaly and an ERA5-reconstructed WeMO index was
-computed for lags ranging from $-24$ to $+24$~months over the
-period 1993--2023 ($n = {n}$~months). The WeMO index was
-reconstructed from ERA5 monthly mean sea-level pressure (MSLP)
-at the canonical station pair San~Fernando (36.45\\textdegree N,
-6.20\\textdegree W) and Padua (45.37\\textdegree N,
-11.87\\textdegree E), following the standardisation procedure of
-\\citet{{MartinVide2006}} and \\citet{{Lopez2022}} (see
-Supplementary Information for reconstruction validation against
-the published 1993--2013 WeMO record). The zero-lag correlation
-is statistically significant ($r = {r_zero:.3f}$,
-$p = {p_zero:.4f}$), and the maximum cross-correlation is
-reached at lag~${lag_opt:+d}$~months, a positive lag meaning that
-the WeMO leads ($r = {r_opt:.3f}$, $p = {p_opt:.5f}$,
-lag~$= {lag_opt:+d}$~months, $n = {n}$). The negative sign is
-physically consistent with the proposed mechanism: a negative
-WeMO phase is associated with weakened northerly winds over the
-Algerian Basin, conditions hypothesised to reduce wind-stress
-damping of baroclinic instability and favour positive EKE
-anomalies at the lag of the maximum, whose sign is given above. Significant
-correlations ($p < 0.05$) are sustained across lags from
-${sig_lags[0]:+d}$ to ${sig_lags[-1]:+d}$~months, indicating a
-robust and persistent ocean response to the WeMO signal. This
-analysis, extended to the full 1993--2023 record including the
-high-energy post-2008 regime, provides the first formal
-quantitative evidence that the WeMO--EKE relationship documented
-here for 1993--2013 persists and is statistically robust over
-the complete altimetric era.
-
-% NOTE AUTEUR : Comparer avec anciens chiffres (1993-2013) :
-%   r(lag=0) ancien = -0.155   p = 0.014
-%   r(lag=-2) ancien = -0.218  p = 0.0005
-%   Si nouveaux chiffres similaires ou meilleurs → très bon signe
-%   Si affaiblis → noter le changement et l'analyser honnêtement
-% ═══════════════════════════════════════════════════════════
-"""
-    with open(out_txt, 'w', encoding='utf-8') as f:
-        f.write(para)
-    print(f"Texte LaTeX généré : {out_txt}")
-
-
-# ════════════════════════════════════════════════════════════
 # MAIN
-# ════════════════════════════════════════════════════════════
 if __name__ == '__main__':
     print("=" * 60)
     print("EXTENSION WeMO 1993–2023 — ERA5 RECONSTRUCTION")
@@ -463,16 +396,3 @@ if __name__ == '__main__':
     make_wemo_figure(lags, corrs, pvals, wemo, time_wemo,
                      eke, time_eke, lag_opt, r_opt, p_opt, n, OUT_FIG)
 
-    # Texte LaTeX
-    latex_txt = BASE + r"\wemo_latex_paragraph_1993_2023.txt"
-    generate_latex_paragraph(lag_opt, r_opt, p_opt, r_zero, p_zero,
-                              n, sig_lags, latex_txt)
-
-    print("\n" + "=" * 60)
-    print("PROCHAINES ÉTAPES :")
-    print("1. Comparer r et lag avec les valeurs 1993-2013")
-    print("2. Si résultats cohérents → remplacer le paragraphe WeMO")
-    print("3. Ajouter la nouvelle figure WeMO dans main.tex")
-    print("4. Mentionner 'ERA5 reconstruction, validated against")
-    print("   published 1993-2013 WeMO record' dans les méthodes")
-    print("=" * 60)

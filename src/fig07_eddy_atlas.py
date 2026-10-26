@@ -45,7 +45,7 @@ EDDY_DIR = DATA_DIR + r"\EDDIES"
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement ────────────────────────────────────────────────────────────
+# Chargement
 print("Chargement catalogues eddies...")
 df_a = pd.read_csv(os.path.join(EDDY_DIR, "anticyclones_1993_2023_ALL.csv"))
 df_c = pd.read_csv(os.path.join(EDDY_DIR, "cyclones_1993_2023_ALL.csv"))
@@ -72,7 +72,7 @@ slope_a_yr = coeffs_a[0] * 10
 
 print(f"Anticyclones : {len(df_a):,} | Cyclones : {len(df_c):,}")
 
-# ── Configuration ─────────────────────────────────────────────────────────
+# Configuration
 proj       = ccrs.PlateCarree()
 EXTENT     = [-5, 10, 35, 41]
 LAND_COLOR = '#DDD5C0'
@@ -100,7 +100,7 @@ gs = gridspec.GridSpec(
     height_ratios=[1.05, 1.05, 0.75]
 )
 
-# ── Fonction setup ─────────────────────────────────────────────────────────
+# Fonction setup
 def setup_geoax(ax, label, title):
     ax.set_extent(EXTENT, crs=proj)
     ax.set_facecolor(OCEAN_BG)
@@ -125,9 +125,7 @@ def setup_geoax(ax, label, title):
 
 cbar_items = []
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (a) — Densité anticyclones
-# ═══════════════════════════════════════════════════════════════════════════
 ax1 = fig.add_subplot(gs[0, 0], projection=proj)
 setup_geoax(ax1, '(a)', f'Anticyclone density  (N = {len(df_a):,})')
 
@@ -144,9 +142,7 @@ hb1 = ax1.hexbin(
 )
 cbar_items.append((hb1, ax1, 'Detections (log scale)', None, None))
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (b) — Densité cyclones
-# ═══════════════════════════════════════════════════════════════════════════
 ax2 = fig.add_subplot(gs[0, 1], projection=proj)
 setup_geoax(ax2, '(b)', f'Cyclone density  (N = {len(df_c):,})')
 
@@ -163,9 +159,7 @@ hb2 = ax2.hexbin(
 )
 cbar_items.append((hb2, ax2, 'Detections (log scale)', None, None))
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (c) — Amplitude anticyclones
-# ═══════════════════════════════════════════════════════════════════════════
 ax3 = fig.add_subplot(gs[1, 0], projection=proj)
 setup_geoax(ax3, '(c)', 'Anticyclone amplitude (cm)')
 
@@ -184,9 +178,7 @@ hb3 = ax3.hexbin(
 cbar_items.append((hb3, ax3, 'Mean amplitude (cm)', '%.0f', [0,2,4,6,8,10]))
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (d) — Rayon anticyclones
-# ═══════════════════════════════════════════════════════════════════════════
 ax4 = fig.add_subplot(gs[1, 1], projection=proj)
 setup_geoax(ax4, '(d)', 'Anticyclone speed radius (km)')
 
@@ -204,9 +196,7 @@ hb4 = ax4.hexbin(
 )
 cbar_items.append((hb4, ax4, 'Mean radius (km)', '%.0f', [10,20,30,40]))
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (e) — Série temporelle annuelle
-# ═══════════════════════════════════════════════════════════════════════════
 ax5 = fig.add_subplot(gs[2, 0])
 ax5.spines['top'].set_visible(False)
 ax5.spines['right'].set_visible(False)
@@ -257,9 +247,7 @@ leg5 = ax5.legend(framealpha=0.88, edgecolor='#CCCCCC',
 leg5.get_frame().set_linewidth(0.4)
 ax5.tick_params(axis='x', labelsize=6.0, rotation=45)
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (f) — Cycle saisonnier
-# ═══════════════════════════════════════════════════════════════════════════
 ax6 = fig.add_subplot(gs[2, 1])
 ax6.spines['top'].set_visible(False)
 ax6.spines['right'].set_visible(False)
@@ -310,7 +298,7 @@ leg6 = ax6.legend(framealpha=0.88, edgecolor='#CCCCCC',
                   loc='upper left', labelspacing=0.25)
 leg6.get_frame().set_linewidth(0.4)
 
-# ── Colorbars ─────────────────────────────────────────────────────────────
+# Colorbars
 fig.canvas.draw()
 for idx, (mappable, ax, label, fmt, ticks) in enumerate(cbar_items):
     pos = ax.get_position()
@@ -339,7 +327,7 @@ for idx, (mappable, ax, label, fmt, ticks) in enumerate(cbar_items):
 
 
 
-# ── Sauvegarde ────────────────────────────────────────────────────────────
+# Sauvegarde
 OUTPUT_PNG = FIG_DIR + r"\Figure_06_Eddy_Atlas.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_06_Eddy_Atlas.pdf"
 

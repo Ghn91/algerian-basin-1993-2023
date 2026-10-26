@@ -1,8 +1,8 @@
 polarite,distance_a,n,q25_km,mediane_km,q75_km
-anticyclone,cote_africaine,7215,60.0976,65.6559,106.0320
-anticyclone,terre_la_plus_proche,7215,60.0976,65.4789,99.1276
-anticyclone,hexagone_maximal,1740,,-4.25,35.71
-cyclone,cote_africaine,4525,81.0375,101.7403,124.7619
-cyclone,terre_la_plus_proche,4525,64.7858,76.7268,88.3760
-cyclone,hexagone_maximal,127,,-2.13,35.97
+anticyclone,cote_africaine,129838,83.6464,175.2177,285.6518
+anticyclone,terre_la_plus_proche,129838,46.0942,70.5666,103.2599
+anticyclone,hexagone_maximal,3444,,-4.25,35.71
+cyclone,cote_africaine,150478,98.5113,162.9466,291.2880
+cyclone,terre_la_plus_proche,150478,46.8795,69.7503,93.9473
+cyclone,hexagone_maximal,1047,,1.25,39.41
 chlorophylle,rang_chl_distance_terre,27359,,-0.381745,

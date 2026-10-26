@@ -272,7 +272,7 @@ def produire():
             "eke_vers": f"{moy['twosat_025']:.10e}",
             "rapport": f"{rapport(moy['twosat_025'], moy['allsat_0125']):.6f}",
             "lecture": "ce qu'on mesurerait en comparant les deux produits tels "
-            "qu'ils sont publies — la SOMME des deux effets",
+            "qu'ils sont publies — la somme des deux effets",
         },
     ]
     ecrire(os.path.join(SORTIES, "products_attenuation.csv"), lignes)
@@ -373,6 +373,7 @@ def ecrire(chemin, lignes):
 def main(argv):
     if "--produire" in argv:
         return produire()
+    print(__doc__)
     return 0
 
 

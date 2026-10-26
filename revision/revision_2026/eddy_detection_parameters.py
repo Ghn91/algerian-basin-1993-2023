@@ -15,12 +15,9 @@ import sys
 DOSSIER = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(DOSSIER)
 SORTIES = os.path.join(DOSSIER, "sorties")
-ATLAS = {
-    "anticyclone": os.path.join(
-        RACINE, "origine_2026-03", "anticyclones_1993_2023_ALL.csv"
-    ),
-    "cyclone": os.path.join(RACINE, "origine_2026-03", "cyclones_1993_2023_ALL.csv"),
-}
+sys.path.insert(0, DOSSIER)
+from eddy_atlas import ATLAS_FICHIERS as ATLAS
+
 MASQUE = os.path.join(DOSSIER, "donnees", "masque_cotier_medsea.npz")
 SCRIPT_PUBLIC = os.path.join(
     os.path.dirname(RACINE), "algerian-basin-1993-2023", "src", "eddy_detection.py"
@@ -89,14 +86,16 @@ def sens_du_masque(mask, lons, lats, temoins=TEMOINS):
     return None
 
 
-def distance_minimale_a_la_terre(lon, lat, terre, lons, lats):
+def distances_a_la_terre(lon, lat, terre, lons, lats):
     import numpy as np
+    from scipy.spatial import cKDTree
 
     jt, it = np.where(terre)
     if jt.size == 0:
-        return float("inf")
-    d = np.hypot(np.asarray(lons)[it] - lon, np.asarray(lats)[jt] - lat)
-    return float(d.min())
+        return np.full(len(lon), np.inf)
+    arbre = cKDTree(np.column_stack([np.asarray(lons)[it], np.asarray(lats)[jt]]))
+    d, _ = arbre.query(np.column_stack([lon, lat]))
+    return d
 
 
 def pas_de_grille(lons, lats):
@@ -129,7 +128,7 @@ def relever():
 
     lignes, annees, dates = [], {}, {}
     for pol, chemin in ATLAS.items():
-        rs, re_, amp, dmin = [], [], [], []
+        rs, re_, amp, plon, plat = [], [], [], [], []
         annees[pol], dates[pol] = [], set()
         with io.open(chemin, encoding="utf-8") as f:
             for x in csv.DictReader(f):
@@ -138,11 +137,9 @@ def relever():
                 rs.append(float(x["radius_s"]))
                 re_.append(float(x["radius_e"]))
                 amp.append(float(x["amplitude"]))
-                dmin.append(
-                    distance_minimale_a_la_terre(
-                        float(x["lon"]), float(x["lat"]), terre, lons, lats
-                    )
-                )
+                plon.append(float(x["lon"]))
+                plat.append(float(x["lat"]))
+        dmin = list(distances_a_la_terre(plon, plat, terre, lons, lats))
         for nom, vals, fac, unite in (
             ("rayon de vitesse", rs, 1e-3, "km"),
             ("rayon effectif", re_, 1e-3, "km"),
@@ -175,8 +172,8 @@ def relever():
         w.writerow(
             [
                 "periode",
-                "jours_anticycloniques",
-                "jours_cycloniques",
+                "detections_anticycloniques",
+                "detections_cycloniques",
                 "rapport",
                 "un_enregistrement_par_date",
             ]
@@ -219,6 +216,7 @@ def relever():
 def main(argv):
     if "--relever" in argv:
         return relever()
+    print(__doc__)
     return 0
 
 

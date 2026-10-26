@@ -118,3 +118,4 @@ def produire():
 if __name__ == "__main__":
     if "--produire" in sys.argv:
         sys.exit(produire())
+    print(__doc__)

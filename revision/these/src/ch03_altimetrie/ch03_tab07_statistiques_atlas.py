@@ -152,7 +152,7 @@ def produire(dossier_source):
                 },
                 "convention_ecart_type": "diviseur n - 1, comme le script d'origine",
                 "fichiers": archive,
-                "note": "les colonnes d'aire sont ecartees a la LECTURE ; le compte "
+                "note": "les colonnes d'aire sont ecartees a la lecture ; le compte "
                 "d'erreurs du script d'origine n'a jamais ete archive, donc un "
                 "jour sans detection peut etre une absence ou un echec",
             },

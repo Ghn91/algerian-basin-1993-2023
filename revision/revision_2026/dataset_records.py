@@ -27,6 +27,7 @@ EXTRACTIONS_SOURCES = {
         "00_download_data.py",
     ),
     "altimetrie, ce dossier": os.path.join(DOSSIER, "download_altimetry.py"),
+    "Gibraltar, ce dossier": os.path.join(DOSSIER, "gibraltar_inflow.py"),
 }
 EXTRACTION = EXTRACTIONS_SOURCES["depot public"]
 
@@ -289,7 +290,7 @@ def accord(appel, recu):
         manque = [v for v in dem if v not in porte]
         if manque:
             details.append(
-                "variables demandees et ABSENTES du fichier : " + ", ".join(manque)
+                "variables demandees et absentes du fichier : " + ", ".join(manque)
             )
 
     pmin, pmax = appel.get("prof_min"), appel.get("prof_max")
@@ -455,7 +456,7 @@ def relever():
                 "etat": (
                     "declare hors catalogue CMEMS, a relever"
                     if trouvee
-                    else "DECLARATION ORPHELINE — le manuscrit ne le " "nomme plus"
+                    else "declaration orpheline — le manuscrit ne le " "nomme plus"
                 ),
             }
         )
@@ -485,7 +486,7 @@ def relever():
                 "etat": (
                     "declare hors catalogue CMEMS, releve au CDS"
                     if trouvee
-                    else "DECLARATION ORPHELINE — le manuscrit ne porte "
+                    else "declaration orpheline — le manuscrit ne porte "
                     "ni la collection ni son DOI"
                 ),
             }
@@ -867,6 +868,7 @@ def main(argv):
                 return 1
             a = argv[i + 1]
         return recevoir(apercu=a)
+    print(__doc__)
     return 0
 
 

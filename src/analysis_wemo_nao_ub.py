@@ -20,7 +20,7 @@ from scipy import stats
 import urllib.request
 
 
-# ── EKE TWO-SAT ───────────────────────────────────────────────────────
+# EKE TWO-SAT
 print("Calcul EKE...")
 ds2 = xr.open_dataset(
     DATA_DIR + r"\c3s_obs-sl_glo_phy-ssh_my_twosat-l4-duacs-0.25deg"
@@ -39,7 +39,7 @@ eke_vals  = eke_anom.values
 eke_dates = pd.DatetimeIndex(eke_anom.time.values).to_period('M')
 print(f"EKE : {len(eke_vals)} mois")
 
-# ── WeMO 1993-2013 (données UB intégrées directement) ─────────────────
+# WeMO 1993-2013 (données UB intégrées directement)
 wemo_data = {
     1993:[-0.19,-1.18,-0.99, 0.65,-0.72, 1.23, 0.11,-0.38, 1.00,-0.47,-0.84, 2.06],
     1994:[ 0.91, 0.31, 0.37, 3.19, 0.67,-0.04,-0.41, 0.75, 0.07,-0.96, 0.06, 0.45],
@@ -73,7 +73,7 @@ wemo_vals  = np.array([v for vals in wemo_data.values() for v in vals])
 wemo_vals  = (wemo_vals - wemo_vals.mean()) / wemo_vals.std()  # standardiser
 print(f"WeMO : {len(wemo_vals)} mois (1993-2013, source UB Barcelona)")
 
-# ── NAO mensuel NOAA (automatique, 1993-2023) ─────────────────────────
+# NAO mensuel NOAA (automatique, 1993-2023)
 print("Téléchargement NAO NOAA...")
 try:
     nao_url = ("https://www.cpc.ncep.noaa.gov/products/precip/CWlink/"
@@ -98,7 +98,7 @@ except Exception as e:
     print(f"NAO non disponible : {e}")
     nao_ok = False
 
-# ── Corrélation croisée ───────────────────────────────────────────────
+# Corrélation croisée
 def cross_corr(eke_d, eke_v, idx_d, idx_v, name, max_lag=24):
     rows = []
     for lag in range(-max_lag, max_lag+1):
@@ -143,7 +143,7 @@ if nao_ok:
         eke_dates, eke_vals, nao_index, nao_vals,
         "NAO  vs EKE  (NOAA 1993-2023, n=372)")
 
-# ── Sortie finale ─────────────────────────────────────────────────────
+# Sortie finale
 print(f"""
 {'='*60}
 RÉSULTATS POUR main.tex — section 5.3

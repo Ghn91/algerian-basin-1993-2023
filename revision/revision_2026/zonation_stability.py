@@ -125,3 +125,4 @@ if __name__ == "__main__":
         if "--tirages" in sys.argv:
             n = int(sys.argv[sys.argv.index("--tirages") + 1])
         sys.exit(produire(n))
+    print(__doc__)

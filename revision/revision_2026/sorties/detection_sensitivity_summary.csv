@@ -1,0 +1,11 @@
+variante,polarite,filtre_km,contour_mm,erreur_forme_pourcent,jours,identifiees_par_jour,identifiees_dans_le_domaine_par_jour,retenues_par_jour,amplitude_moyenne_cm,rayon_moyen_km
+reference,anticyclone,700,2.0,55,1133,11.5605,11.5605,11.5605,3.828,29.1654
+reference,cyclone,700,2.0,55,1133,13.2604,13.2604,13.2604,1.8864,28.7012
+filtre 500 km,anticyclone,500,2.0,55,1133,12.0177,12.0177,12.0177,3.7984,29.29
+filtre 500 km,cyclone,500,2.0,55,1133,13.8217,13.8217,13.8217,1.95,29.0625
+filtre 1000 km,anticyclone,1000,2.0,55,1133,11.3778,11.3778,11.3778,3.8078,28.9968
+filtre 1000 km,cyclone,1000,2.0,55,1133,12.8288,12.8288,12.8288,1.8425,28.3937
+contour 0.001 m,anticyclone,700,1.0,55,1133,13.3204,13.3204,13.3204,3.4074,27.5967
+contour 0.001 m,cyclone,700,1.0,55,1133,15.5728,15.5728,15.5728,1.6958,27.071
+contour 0.004 m,anticyclone,700,4.0,55,1133,8.7052,8.7052,8.7052,4.7903,32.3063
+contour 0.004 m,cyclone,700,4.0,55,1133,9.2568,9.2568,9.2568,2.3492,32.4969

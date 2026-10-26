@@ -273,8 +273,7 @@ def produire(chemin_netcdf, tirages=TIRAGES_H0):
                 "tirages_simulation": tirages,
                 "graine_plancher": GRAINE_H0,
                 "graine_puissance": GRAINE_H0 + 1,
-                "note": "test de significativite de r1 NON applique — voir l'en-tete "
-                "du module ; le TFPW est publie mais ne porte aucune conclusion",
+                "note": "test de significativite de r1 non applique ; le TFPW est publie mais ne porte aucune conclusion",
             },
             indent=2,
             ensure_ascii=False,

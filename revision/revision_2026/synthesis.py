@@ -94,6 +94,7 @@ def main(argv):
     if "--apercu" in argv:
         i = argv.index("--apercu")
         return produire(apercu=argv[i + 1])
+    print(__doc__)
     return 0
 
 

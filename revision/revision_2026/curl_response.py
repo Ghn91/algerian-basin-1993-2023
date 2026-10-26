@@ -451,6 +451,7 @@ def ecrire_csv(chemin, lignes):
 def main(argv):
     if "--produire" in argv:
         return produire()
+    print(__doc__)
     return 0
 
 

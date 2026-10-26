@@ -43,14 +43,14 @@ plt.rcParams.update({
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement TWO-SAT ────────────────────────────────────────────────────
+# Chargement TWO-SAT
 print("Chargement TWO-SAT...")
 ds2 = xr.open_dataset(
     DATA_DIR + r"\c3s_obs-sl_glo_phy-ssh_my_twosat-l4-duacs-0.25deg"
                r"_P1D_multi-vars_4.88W-9.88E_35.12N-40.88N_1993-01-01-2023-12-31.nc"
 )
 
-# ── EKE TWO-SAT ───────────────────────────────────────────────────────────
+# EKE TWO-SAT
 print("Calcul EKE TWO-SAT...")
 ugos_mean_t = ds2['ugos'].mean('time')
 vgos_mean_t = ds2['vgos'].mean('time')
@@ -68,7 +68,7 @@ times_m = eke2_monthly.time.values
 N       = len(vals)
 ds2.close()
 
-# ── Mann-Kendall ──────────────────────────────────────────────────────────
+# Mann-Kendall
 print("Test de Mann-Kendall...")
 result_mk   = mk.original_test(vals)
 slope_decade= result_mk.slope * 12 * 10
@@ -76,7 +76,7 @@ t_num       = np.arange(N)
 trend_mk    = result_mk.slope * t_num + np.nanmedian(vals)
 smooth12    = uniform_filter1d(vals, size=12, mode='nearest')
 
-# ── Wavelet Morlet ────────────────────────────────────────────────────────
+# Wavelet Morlet
 print("Analyse Wavelet...")
 signal  = vals_an - np.nanmean(vals_an)
 signal  = np.where(np.isnan(signal), 0, signal)
@@ -92,7 +92,7 @@ peak_idx   = np.argmax(global_pwr)
 print(f"Pic dominant : {periods[peak_idx]:.0f} mois")
 print(f"Mann-Kendall : p={result_mk.p:.4f} | slope={slope_decade:+.2f} cm2/s2/dec")
 
-# ── Figure 3 ──────────────────────────────────────────────────────────────
+# Figure 3
 fig = plt.figure(figsize=(7.0, 7.2))
 fig.patch.set_facecolor('white')
 
@@ -115,9 +115,7 @@ def style_ax(ax, xlabel=False):
     if not xlabel:
         ax.tick_params(labelbottom=False)
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (a) — EKE TWO-SAT + Mann-Kendall
-# ─────────────────────────────────────────────────────────────────────────
 ax1 = fig.add_subplot(gs[0])
 style_ax(ax1)
 
@@ -159,9 +157,7 @@ ax1.xaxis.set_major_locator(mdates.YearLocator(5))
 ax1.xaxis.set_minor_locator(mdates.YearLocator(1))
 ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (b) — Scalogramme Wavelet
-# ─────────────────────────────────────────────────────────────────────────
 ax2 = fig.add_subplot(gs[1])
 ax2.spines['top'].set_visible(False)
 ax2.spines['right'].set_visible(False)
@@ -226,9 +222,7 @@ cb2.ax.tick_params(labelsize=5.5, width=0.4, length=2)
 cb2.outline.set_linewidth(0.4)
 cb2.set_ticks([0, 0.25, 0.50, 0.75, 1.0])
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (c) — Spectre de puissance global
-# ─────────────────────────────────────────────────────────────────────────
 ax3 = fig.add_subplot(gs[2])
 style_ax(ax3, xlabel=True)
 
@@ -272,7 +266,7 @@ leg3 = ax3.legend(loc='upper left', framealpha=0.85,
                   ncol=2)
 leg3.get_frame().set_linewidth(0.4)
 
-# ── Sauvegarde ────────────────────────────────────────────────────────────
+# Sauvegarde
 OUTPUT_PNG = FIG_DIR + r"\Figure_03_MannKendall_Wavelet.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_03_MannKendall_Wavelet.pdf"
 

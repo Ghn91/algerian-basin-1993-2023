@@ -15,12 +15,9 @@ import numpy as np
 DOSSIER = os.path.dirname(os.path.abspath(__file__))
 RACINE = os.path.dirname(DOSSIER)
 CIBLE = os.path.join(DOSSIER, "manuscript")
-ATLAS = {
-    "anticyclone": os.path.join(
-        RACINE, "origine_2026-03", "anticyclones_1993_2023_ALL.csv"
-    ),
-    "cyclone": os.path.join(RACINE, "origine_2026-03", "cyclones_1993_2023_ALL.csv"),
-}
+sys.path.insert(0, DOSSIER)
+from eddy_atlas import ATLAS_FICHIERS as ATLAS
+
 EMPRISE = (-5.0, 10.0, 35.0, 41.0)
 LARGEUR_MM = 190.0
 LARGEUR_POUCES = LARGEUR_MM / 25.4
@@ -107,6 +104,26 @@ def extremes(ans, n):
     i, j = int(np.argmin(n)), int(np.argmax(n))
     egalites = int((n == n[i]).sum() > 1 or (n == n[j]).sum() > 1)
     return int(ans[i]), int(n[i]), int(ans[j]), int(n[j]), egalites
+
+
+def taux_annuel(annees, debut=1993, fin=2023):
+    import calendar
+
+    ans, n = comptes_annuels(annees, debut, fin)
+    jours = np.array([366 if calendar.isleap(int(a)) else 365 for a in ans])
+    return ans, n / jours
+
+
+def taux_mensuel(mois, debut=1993, fin=2023):
+    import calendar
+
+    jours = np.array(
+        [
+            sum(calendar.monthrange(a, m)[1] for a in range(debut, fin + 1))
+            for m in range(1, 13)
+        ]
+    )
+    return np.array([(mois == m).sum() for m in range(1, 13)]) / jours
 
 
 def pas_des_fleches(coord, espacement_deg=0.5):
@@ -732,12 +749,7 @@ ONDELETTES_THESE = os.path.join(
     DOSSIER, "sorties_these", "these_ch03_tab22_ondelettes_significativite.csv"
 )
 BLOC_DU_TEXTE = 24
-THESES = [
-    os.path.join(RACINE, "..", "THESE_2026", "these-marge-algerienne"),
-    os.path.join(RACINE, "these"),
-    os.path.join(RACINE, "..", "these-marge-algerienne"),
-    os.environ.get("THESE_DEPOT", ""),
-]
+THESES = [os.path.join(RACINE, "these"), os.environ.get("THESE_DEPOT", "")]
 
 
 def module_de_these(nom):
@@ -770,7 +782,6 @@ def figure_4(apercu=None):
     moy, _ = climatologie(mo, v)
     anom = v - moy[mo - 1]
     res = w.analyser(anom)
-    res115 = w.analyser(anom, alpha=w.ALPHA_MANUSCRIT)
     publie = {
         r["periode_annoncee_mois"]: r
         for r in lire_csv(ONDELETTES_THESE)
@@ -880,15 +891,7 @@ def figure_4(apercu=None):
         res["lam"][ok],
         color=ROUGE,
         linewidth=0.9,
-        label=r"95 %, measured $\alpha$",
-    )
-    ax.plot(
-        res115["seuil"][ok],
-        res115["lam"][ok],
-        color="0.5",
-        linewidth=0.9,
-        linestyle="--",
-        label=r"95 %, submitted $\alpha$",
+        label="95 % red-noise threshold",
     )
     ax.set_yscale("log", base=2)
     ax.set_ylim(w.PERIODES_ARTICLE[1], w.PERIODES_ARTICLE[0])
@@ -1105,7 +1108,7 @@ def figure_6(apercu=None):
         color="black",
         markersize=3,
         linewidth=1.0,
-        label="mean as in the submitted analysis",
+        label="mean computed in single precision",
     )
     ax.set_xticks(ks)
     ax.set_xlabel(r"Number of classes $\mathit{N}$")
@@ -1147,10 +1150,10 @@ def figure_6(apercu=None):
 
 
 TEXTE_FIG7 = {
-    "mois_max": {"anticyclone": "August", "cyclone": "September"},
+    "mois_max": {"anticyclone": "March", "cyclone": "April"},
     "extremes": {
-        "anticyclone": (2003, 108, 2023, 313),
-        "cyclone": (2002, 46, 2012, 229),
+        "anticyclone": (1995, 10.11, 2023, 13.49),
+        "cyclone": (1995, 11.81, 2023, 15.55),
     },
 }
 
@@ -1161,19 +1164,19 @@ def figure_7(apercu=None):
 
     plt = style()
     a = {k: lire_atlas(p) for k, p in ATLAS.items()}
-    n_annees = 31
     defauts = []
     for k, d in a.items():
-        cyc = cycle_saisonnier(d["mois"], n_annees)
-        mois = MOIS_EN[int(np.argmax(cyc))]
+        tm = taux_mensuel(d["mois"])
+        mois = MOIS_EN[int(np.argmax(tm))]
         if mois != TEXTE_FIG7["mois_max"][k]:
             defauts.append(
                 f"{k} : maximum saisonnier en {mois}, le texte dit "
                 f"{TEXTE_FIG7['mois_max'][k]}"
             )
-        ans, n = comptes_annuels(d["annee"])
-        e = extremes(ans, n)
-        if e[:4] != TEXTE_FIG7["extremes"][k] or e[4]:
+        ans, t = taux_annuel(d["annee"])
+        i, j = int(np.argmin(t)), int(np.argmax(t))
+        e = (int(ans[i]), round(float(t[i]), 2), int(ans[j]), round(float(t[j]), 2))
+        if e != TEXTE_FIG7["extremes"][k]:
             defauts.append(
                 f"{k} : extremes {e}, le texte dit " f"{TEXTE_FIG7['extremes'][k]}"
             )
@@ -1223,15 +1226,16 @@ def figure_7(apercu=None):
         )
         lettre(ax, "ab"[i])
         cartes.append(ax)
-    cb = barre(fig, hb, cartes, "Documented days per hexagon", shrink=0.6, aspect=45)
-    cb.set_ticks([1, 10, 100, 1000])
-    cb.set_ticklabels(["1", "10", "100", "1000"])
+    cb = barre(fig, hb, cartes, "Detections per hexagon", shrink=0.6, aspect=45)
+    graduations = [10**e for e in range(0, int(np.floor(np.log10(vmax))) + 1)]
+    cb.set_ticks(graduations)
+    cb.set_ticklabels([f"{g:d}" for g in graduations])
     cb.ax.minorticks_off()
 
     for j, (var, xl, unite, bins) in enumerate(
         (
-            ("amplitude_cm", "Amplitude (cm)", "cm", np.arange(0, 15.25, 0.25)),
-            ("rayon_km", "Speed radius (km)", "km", np.arange(0, 61, 1)),
+            ("amplitude_cm", "Amplitude (cm)", "cm", np.arange(0, 20.25, 0.25)),
+            ("rayon_km", "Speed radius (km)", "km", np.arange(0, 81, 1)),
         )
     ):
         ax = fig.add_subplot(gs[1, j])
@@ -1255,35 +1259,32 @@ def figure_7(apercu=None):
         lettre(ax, "cd"[j])
 
     ax = fig.add_subplot(gs[2, 0])
-    larg = 0.4
-    for i, k in enumerate(a):
-        ans, n = comptes_annuels(a[k]["annee"])
-        ax.bar(
-            ans + (i - 0.5) * larg,
-            n,
-            width=larg,
-            color=COULEUR[k],
-            label=NOM[k],
-            linewidth=0,
+    for k in a:
+        ans, t = taux_annuel(a[k]["annee"])
+        ax.plot(
+            ans, t, "o-", color=COULEUR[k], markersize=2.5, linewidth=0.9, label=NOM[k]
         )
     ax.set_xlabel("Year")
-    ax.set_ylabel("Documented days per year")
+    ax.set_ylabel("Detections per day")
     ax.set_xlim(1992.3, 2023.7)
-    ax.set_ylim(0, 365)
+    bas = min(taux_annuel(a[k]["annee"])[1].min() for k in a)
+    haut = max(taux_annuel(a[k]["annee"])[1].max() for k in a)
+    ax.set_ylim(np.floor(bas) - 1, np.ceil(haut) + 1.5)
     ax.legend(loc="upper left", ncol=2)
     lettre(ax, "e")
 
     ax = fig.add_subplot(gs[2, 1])
     x = np.arange(1, 13)
+    larg = 0.4
     haut = 0.0
     for i, k in enumerate(a):
-        cyc = cycle_saisonnier(a[k]["mois"], n_annees)
-        haut = max(haut, cyc.max())
-        bord = ["black" if m == np.argmax(cyc) else COULEUR[k] for m in range(12)]
-        ep = [0.9 if m == np.argmax(cyc) else 0.0 for m in range(12)]
+        tm = taux_mensuel(a[k]["mois"])
+        haut = max(haut, tm.max())
+        bord = ["black" if m == np.argmax(tm) else COULEUR[k] for m in range(12)]
+        ep = [0.9 if m == np.argmax(tm) else 0.0 for m in range(12)]
         ax.bar(
             x + (i - 0.5) * larg,
-            cyc,
+            tm,
             width=larg,
             color=COULEUR[k],
             edgecolor=bord,
@@ -1294,7 +1295,7 @@ def figure_7(apercu=None):
     ax.set_xticklabels([m[0] for m in MOIS])
     ax.set_xlim(0.4, 12.6)
     ax.set_ylim(0, haut * 1.22)
-    ax.set_ylabel("Documented days per month")
+    ax.set_ylabel("Detections per day")
     ax.legend(loc="upper left", ncol=2)
     lettre(ax, "f")
 
@@ -1316,6 +1317,43 @@ ENERGIES_8 = (
     ("turbulente_quotidienne", "EKE (Eq. 1)", BLEU),
     ("totale_quotidienne", "kinetic energy of the total flow", ROUGE),
 )
+RETARDS_37 = os.path.join(DOSSIER, "sorties", "gibraltar_inflow_by_longitude_lags.csv")
+BORNE_EST_37 = -3
+
+
+def balayage_est(borne=BORNE_EST_37):
+    lig = sorted(
+        (
+            int(r["retard_mois"]),
+            float(r["r"]),
+            float(r["seuil_bonferroni"]),
+            float(r["seuil_nominal"]),
+        )
+        for r in lire_csv(RETARDS_37)
+        if r["domaine"] == "est"
+        and int(r["borne_deg_e"]) == borne
+        and r["indice"] == "wemo"
+    )
+    if len(lig) != 49:
+        raise SystemExit(
+            f"STOP: {len(lig)} lags for the sub-domain east of {borne}, not 49"
+        )
+    return lig
+
+
+def tracer_est(ax, taille):
+    lig = balayage_est()
+    ax.plot(
+        [q[0] for q in lig],
+        [q[1] for q in lig],
+        "o--",
+        color=ROUGE,
+        markerfacecolor="white",
+        markersize=taille,
+        linewidth=0.7,
+        label="total flow, east of 3°W",
+    )
+    return lig[0][2], lig[0][3]
 
 
 def figure_8(apercu=None):
@@ -1380,6 +1418,11 @@ def figure_8(apercu=None):
             ax.axhline(y, color=GRIS_SEUIL, linewidth=0.7, linestyle="--")
         for y in (sn, -sn):
             ax.axhline(y, color=GRIS_SEUIL, linewidth=0.5, linestyle=":")
+    sb, sn = tracer_est(ax, 2.2)
+    for y in (sb, -sb):
+        ax.axhline(y, color=GRIS_SEUIL, linewidth=0.7, linestyle="--")
+    for y in (sn, -sn):
+        ax.axhline(y, color=GRIS_SEUIL, linewidth=0.5, linestyle=":")
     ax.plot(
         [],
         [],
@@ -1432,6 +1475,7 @@ def figure_9(apercu=None):
         BALAYAGE_THESE,
         VERDICT_THESE,
         BANDES,
+        RETARDS_37,
     )
     manquants = [p for p in sources if not os.path.isfile(p)]
     if manquants:
@@ -1528,10 +1572,16 @@ def figure_9(apercu=None):
             linewidth=0.9,
             label=lab,
         )
+    sb_e, sn_e = tracer_est(ax, 1.8)
     sb, sn = float(verd["totale_quotidienne"]["seuil_bonferroni"]), float(
         verd["totale_quotidienne"]["seuil_nominal"]
     )
-    for s, st, w in ((sb, "--", 0.7), (sn, ":", 0.5)):
+    for s, st, w in (
+        (sb, "--", 0.7),
+        (sn, ":", 0.5),
+        (sb_e, "--", 0.7),
+        (sn_e, ":", 0.5),
+    ):
         for sg in (1, -1):
             ax.axhline(sg * s, color=GRIS_SEUIL, linestyle=st, linewidth=w)
     ax.axhline(0, color="black", linewidth=0.4)
@@ -1602,3 +1652,4 @@ if __name__ == "__main__":
         for n, f in FIGURES.items():
             codes[n] = f(apercu)
         sys.exit(max(codes.values()))
+    print(__doc__)

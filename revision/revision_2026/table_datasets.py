@@ -122,10 +122,7 @@ def niveau_lisible(dmin, dmax):
             if a > 0.01
             else "sea surface"
         )
-    return (
-        f"\\num{{{a:.0f}}} to \\num{{{b:.0f}}}~m, that is at most the "
-        f"uppermost \\num{{{max(abs(a), abs(b)):.0f}}}~m"
-    )
+    return f"uppermost \\num{{{max(abs(a), abs(b)):.0f}}}~m"
 
 
 def grille_lisible(fiche, recu, declaree=""):
@@ -160,7 +157,14 @@ def cadence_lisible(fiche, recu):
         if 27.9 <= v <= 31.1:
             return "monthly"
         return f"\\num{{{v:.2f}}}~d"
-    return (fiche or {}).get("resolutions_temporelles", "").strip()
+    c = (fiche or {}).get("resolutions_temporelles", "").strip().lower()
+    return "per profile" if c == "instantaneous" else c
+
+
+def cadences_lisibles(fiche, recus):
+    if not recus:
+        return cadence_lisible(fiche, {})
+    return "; ".join(dict.fromkeys(cadence_lisible(fiche, y) for y in recus))
 
 
 def agreger(valeurs):
@@ -185,7 +189,8 @@ def periode_lisible(extraits, recus, fiche):
             if d and f:
                 bornes.append((d, f))
     if bornes:
-        return f"{min(b[0] for b in bornes)}--{max(b[1] for b in bornes)}"
+        d, f = min(b[0] for b in bornes), max(b[1] for b in bornes)
+        return "static field" if d == f else f"{d}--{f}"
     a = (fiche or {}).get("periode_debut", "").strip()
     b = (fiche or {}).get("periode_fin", "").strip()
     if a and b:
@@ -195,7 +200,7 @@ def periode_lisible(extraits, recus, fiche):
 
 def variables_lisibles(extrait):
     v = [x.strip() for x in (extrait or "").split(";") if x.strip()]
-    return ", ".join("\\texttt{" + echapper(x) + "}" for x in v)
+    return ", ".join("\\prodid{" + echapper(x) + "}" for x in v)
 
 
 def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
@@ -205,10 +210,10 @@ def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
     par_produit = {f.get("produit", ""): f for f in fiches}
     inconnus = [p for p in par_produit if p and p not in et]
     for p in inconnus:
-        defauts.append(f"produit RELEVE sans etiquette declaree : {p}")
+        defauts.append(f"produit releve sans etiquette declaree : {p}")
     for p in et:
         if p not in par_produit:
-            defauts.append(f"etiquette ORPHELINE, aucun produit releve : {p}")
+            defauts.append(f"etiquette orpheline, aucun produit releve : {p}")
 
     rang = {"employe": 0, "retire": 1}
     for p, meta in sorted(
@@ -254,7 +259,11 @@ def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
                 "court": meta["court"],
                 "statut": meta["statut"],
                 "grille": grille_lisible(f, r, meta.get("grille", "")),
-                "cadence": cadence_lisible(f, r),
+                "cadence": (
+                    "static"
+                    if periode_lisible(xs, rs, f) == "static field"
+                    else cadences_lisibles(f, rs)
+                ),
                 "periode": periode_lisible(xs, rs, f),
                 "variables": variables_lisibles(
                     agreger([y.get("variables_portees") for y in rs])
@@ -280,7 +289,7 @@ def lignes_du_tableau(fiches, extraits, recus, etiquettes=None):
             for c in cols:
                 if not str(l.get(c, "")).strip():
                     defauts.append(
-                        f"{nom} / {l.get('court', '?')} : la colonne « {c} » est VIDE"
+                        f"{nom} / {l.get('court', '?')} : la colonne « {c} » est vide"
                     )
     return prov, usage, defauts
 
@@ -313,11 +322,10 @@ def tableau_provenance(lignes):
         r"  \setlength{\tabcolsep}{4pt}",
         r"  \caption{Provenance of the datasets used in this study. "
         r"Product identifiers, versions, providers and digital object "
-        r"identifiers are those published by the data providers' own "
-        r"catalogues, retrieved from the Copernicus Marine Service and "
-        r"Climate Data Store catalogue interfaces rather than "
-        r"transcribed. The last two entries were retrieved but are not "
-        r"used in this study (Section~\ref{sec:hca}).}",
+        r"identifiers are those published in the providers' catalogues "
+        r"(Copernicus Marine Service and Climate Data Store). The last "
+        r"two entries were retrieved but are not used in this study "
+        r"(Section~\ref{sec:notused}).}",
         r"  \label{tab:datasets-provenance}",
         r"  \begin{tabular}{@{}p{2.7cm}p{4.9cm}p{1.2cm}p{2.3cm}p{3.6cm}@{}}",
         r"    \toprule",
@@ -435,6 +443,7 @@ def main(argv):
         return construire()
     if "--essai" in argv:
         return construire(ecrire=False)
+    print(__doc__)
     return 0
 
 

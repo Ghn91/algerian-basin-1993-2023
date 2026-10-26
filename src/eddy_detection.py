@@ -27,7 +27,7 @@ EDDY_DIR = DATA_DIR + r"\EDDIES"
 TEMP_DIR = EDDY_DIR + r"\TEMP"
 os.makedirs(TEMP_DIR, exist_ok=True)
 
-# ── Supprimer les anciens CSV vides ───────────────────────────────────────
+# Supprimer les anciens CSV vides
 print("Nettoyage des anciens CSV vides...")
 deleted = 0
 for yr in range(1993, 2024):
@@ -38,7 +38,7 @@ for yr in range(1993, 2024):
             deleted += 1
 print(f"  {deleted} fichiers vides supprimés\n")
 
-# ── Fonctions utilitaires ─────────────────────────────────────────────────
+# Fonctions utilitaires
 def to_datetime(np_dt64):
     ts = (np_dt64 - np.datetime64('1970-01-01T00:00:00')) \
          / np.timedelta64(1, 's')
@@ -76,7 +76,7 @@ def extract_eddies(obs, date_str, eddy_type):
             pass
     return records
 
-# ── Chargement ────────────────────────────────────────────────────────────
+# Chargement
 print("Chargement allsat 1993–2023...")
 ds = xr.open_dataset(
     DATA_DIR + r"\cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg"
@@ -84,25 +84,25 @@ ds = xr.open_dataset(
 )
 print(f"  {len(ds.time)} pas de temps\n")
 
-# ── Années à traiter (reprise automatique si interruption) ────────────────
+# Années à traiter (reprise automatique si interruption)
 years_todo = []
 for yr in range(1993, 2024):
     fa = os.path.join(EDDY_DIR, f"anticyclones_{yr}.csv")
     fc = os.path.join(EDDY_DIR, f"cyclones_{yr}.csv")
     if os.path.exists(fa) and os.path.exists(fc) \
        and os.path.getsize(fa) > 50:
-        print(f"  {yr} : déjà traité ✓")
+        print(f"  {yr} : déjà traité")
     else:
         years_todo.append(yr)
 
 print(f"\nAnnées restantes : {len(years_todo)}/31")
 print("Début de la détection...\n")
 
-# ── DÉTECTION COMPLÈTE ────────────────────────────────────────────────────
+# DÉTECTION COMPLÈTE
 summary = []
 
 for yr in years_todo:
-    print(f"── {yr} ", end='', flush=True)
+    print(f"-- {yr} ", end='', flush=True)
 
     times_yr  = ds.time.sel(time=str(yr))
     idx_start = int(np.where(ds.time.values == times_yr.values[0])[0][0])
@@ -138,7 +138,7 @@ for yr in years_todo:
             if os.path.exists(tmp_file):
                 os.remove(tmp_file)
 
-    # ── Sauvegarde CSV annuelle ───────────────────────────────────────────
+    # Sauvegarde CSV annuelle
     pd.DataFrame(anti_recs).to_csv(
         os.path.join(EDDY_DIR, f"anticyclones_{yr}.csv"), index=False
     )
@@ -147,10 +147,10 @@ for yr in years_todo:
     )
 
     na, nc = len(anti_recs), len(cyc_recs)
-    print(f"→ {na:4d} anti | {nc:4d} cyc | err={errors}")
+    print(f"-> {na:4d} anti | {nc:4d} cyc | err={errors}")
     summary.append({'year':yr,'n_anti':na,'n_cyc':nc,'errors':errors})
 
-# ── Assemblage global ─────────────────────────────────────────────────────
+# Assemblage global
 print("\nAssemblage global...")
 all_a, all_c = [], []
 for yr in range(1993, 2024):
@@ -170,7 +170,7 @@ df_c = pd.concat(all_c, ignore_index=True) if all_c else pd.DataFrame()
 df_a.to_csv(os.path.join(EDDY_DIR,"anticyclones_1993_2023_ALL.csv"), index=False)
 df_c.to_csv(os.path.join(EDDY_DIR,"cyclones_1993_2023_ALL.csv"),     index=False)
 
-# ── Résumé ────────────────────────────────────────────────────────────────
+# Résumé
 print("\n" + "=" * 55)
 print("ATLAS EDDIES — BASSIN ALGÉRIEN 1993–2023")
 print("=" * 55)

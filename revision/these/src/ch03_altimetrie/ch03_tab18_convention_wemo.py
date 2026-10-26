@@ -183,10 +183,10 @@ def produire(
                     "mois": len(ub),
                     "premier": min(ub),
                     "dernier": max(ub),
-                    "reserve": "serie SAISIE EN DUR dans un script, non telechargee de "
+                    "reserve": "serie saisie en dur dans un script, non telechargee de "
                     "la source ; sa fidelite a la publication de l'UB n'est "
                     "pas etablie ici. Ce qui est etabli porte sur les "
-                    "CONVENTIONS RELATIVES des trois series.",
+                    "conventions relatives des trois series.",
                 },
                 "article": {
                     "fichier": str(Path(source_article).name),

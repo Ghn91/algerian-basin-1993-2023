@@ -104,19 +104,19 @@ def produire():
         (
             "allsat_0125",
             "allsat_025",
-            "effet de GRILLE seul : le bloc-moyennage deplace le niveau "
+            "effet de grille seul : le bloc-moyennage deplace le niveau "
             "sans deformer la serie",
         ),
         (
             "allsat_025",
             "twosat_025",
-            "effet de CONSTELLATION seul, A MAILLE EGALE — c'est CELLE-CI "
+            "effet de constellation seul, a maille egale — c'est celle-ci "
             "que cite la phrase sur la decorrelation",
         ),
         (
             "allsat_0125",
             "twosat_025",
-            "les deux produits TELS QU'ILS SONT PUBLIES : melange grille "
+            "les deux produits tels qu'ils sont publies : melange grille "
             "et constellation, ne mesure aucun des deux effets seul",
         ),
     ]
@@ -144,7 +144,7 @@ def produire():
             "effectif": len(rr),
             "source": "products_ratios_by_year.csv",
             "lecture": "le JSON n'archive que les bornes du rapport de "
-            "CONSTELLATION ; celles-ci manquaient",
+            "constellation ; celles-ci manquaient",
         }
     )
     lignes.append(
@@ -153,7 +153,7 @@ def produire():
             "valeur": f"{hi:.6f}",
             "effectif": len(rr),
             "source": "products_ratios_by_year.csv",
-            "lecture": "le rapport de resolution est PLAT sur la "
+            "lecture": "le rapport de resolution est plat sur la "
             "periode, a comparer a la derive de la "
             "constellation",
         }
@@ -171,7 +171,7 @@ def produire():
             "valeur": f"{debut:.6f}",
             "effectif": 5,
             "source": "products_ratios_by_year.csv",
-            "lecture": "le TWO-SAT voyait PLUS d'energie que l'ALL-SAT "
+            "lecture": "le TWO-SAT voyait plus d'energie que l'ALL-SAT "
             "degrade au debut de la periode",
         }
     )
@@ -181,7 +181,7 @@ def produire():
             "valeur": f"{fin:.6f}",
             "effectif": 5,
             "source": "products_ratios_by_year.csv",
-            "lecture": "et nettement MOINS a la fin : l'attenuation "
+            "lecture": "et nettement moins a la fin : l'attenuation "
             "n'est pas stationnaire",
         }
     )
@@ -221,6 +221,7 @@ def produire():
 def main(argv):
     if "--produire" in argv:
         return produire()
+    print(__doc__)
     return 0
 
 

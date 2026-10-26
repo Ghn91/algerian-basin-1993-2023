@@ -1,3 +1,3 @@
 signe,detections,dates_distinctes,jours_de_calendrier,part_des_jours_documentes,amplitude_moyenne_cm,amplitude_ecart_type_cm,rayon_vitesse_moyen_km,rayon_vitesse_ecart_type_km,rayon_effectif_moyen_km,rayon_effectif_ecart_type_km,vitesse_moyenne_cm_par_s,vitesse_ecart_type_cm_par_s,erreur_de_forme_moyenne_pourcent,valeurs_manquantes
-anticyclone,7215,7215,11322,0.6373,3.92,2.45,22.3,7.7,22.4,7.8,32.74,10.54,17.72,0
-cyclone,4525,4525,11322,0.3997,1.47,0.93,21.1,7.3,21.2,7.4,13.72,4.94,24.38,0
+anticyclone,130850,11322,11322,11.5571,3.83,4.20,29.2,10.8,34.5,16.7,15.92,11.26,25.07,0
+cyclone,150552,11322,11322,13.2973,1.88,1.61,28.7,12.3,31.1,14.5,10.57,4.61,28.94,0

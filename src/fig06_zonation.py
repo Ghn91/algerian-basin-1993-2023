@@ -47,7 +47,7 @@ plt.rcParams.update({
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement + calculs ──────────────────────────────────────────────────
+# Chargement + calculs
 print("Chargement MEDSEA PHY courants...")
 ds_cur = xr.open_dataset(
     DATA_DIR + r"\cmems_mod_med_phy-cur_my_4.2km_P1D-m_uo-vo"
@@ -59,7 +59,7 @@ lats   = ds_cur['latitude'].values
 lons   = ds_cur['longitude'].values
 ds_cur.close()
 
-# ── Divergence ────────────────────────────────────────────────────────────
+# Divergence
 dlat_m = np.abs(np.diff(lats).mean()) * 111000
 dlon_m = np.abs(np.diff(lons).mean()) * 111000 * \
          np.cos(np.radians(np.mean(lats)))
@@ -69,7 +69,7 @@ div    = np.gradient(u_fg, dlon_m, axis=1) + \
          np.gradient(v_fg, dlat_m, axis=0)
 div    = np.where(np.isnan(u_mean)|np.isnan(v_mean), np.nan, div)
 
-# ── CAH ───────────────────────────────────────────────────────────────────
+# CAH
 print("CAH Ward...")
 nlat, nlon   = u_mean.shape
 mask_valid   = ~(np.isnan(u_mean)|np.isnan(v_mean))
@@ -103,7 +103,7 @@ for c in range(1, n_opt+1):
     }
 print(f"N optimal = {n_opt}")
 
-# ── Palette zones — couleurs distinctes qualitatives premium ──────────────
+# Palette zones — couleurs distinctes qualitatives premium
 # Inspiré des palettes ColorBrewer Set1 — lisibles en niveaux de gris aussi
 ZONE_COLORS = [
     '#2166AC',   # bleu profond     Zone 1
@@ -114,7 +114,7 @@ ZONE_COLORS = [
     '#35978F',   # teal             Zone 6
 ][:n_opt]
 
-# ── Figure ────────────────────────────────────────────────────────────────
+# Figure
 proj       = ccrs.PlateCarree()
 EXTENT     = [-5, 10, 35, 41]
 LAND_COLOR = '#DDD5C0'
@@ -165,9 +165,7 @@ def setup_geoax(ax, label, title):
     ax.set_title(title, fontsize=7.0, pad=2.5, loc='center',
                  color='#111111')
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (a) — Zonation CAH
-# ═══════════════════════════════════════════════════════════════════════════
 ax1 = fig.add_subplot(gs[0, 0], projection=proj)
 setup_geoax(ax1, '(a)',
             f'Dynamic circulation regimes — Ward HCA (N = {n_opt})')
@@ -215,9 +213,7 @@ leg1 = ax1.legend(
 )
 leg1.get_frame().set_linewidth(0.4)
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (b) — Divergence
-# ═══════════════════════════════════════════════════════════════════════════
 ax2 = fig.add_subplot(gs[0, 1], projection=proj)
 setup_geoax(ax2, '(b)',
             'Surface divergence $\\nabla \\cdot \\mathbf{u}$  '
@@ -239,9 +235,7 @@ ax2.contour(lons, lats, div_plot*1e6,
             transform=proj, zorder=3,
             linestyles='-')
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (c) — Calinski-Harabasz
-# ═══════════════════════════════════════════════════════════════════════════
 ax3 = fig.add_subplot(gs[1, 0])
 ax3.spines['top'].set_visible(False)
 ax3.spines['right'].set_visible(False)
@@ -274,9 +268,7 @@ ax3.annotate(f'Optimal\nN = {n_opt}',
              fontsize=6.0, color='#C0392B', fontweight='bold',
              arrowprops=dict(arrowstyle='->', color='#C0392B', lw=0.7))
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (d) — Profils de vitesse
-# ═══════════════════════════════════════════════════════════════════════════
 ax4 = fig.add_subplot(gs[1, 1])
 ax4.spines['top'].set_visible(False)
 ax4.spines['right'].set_visible(False)
@@ -331,7 +323,7 @@ leg4 = ax4.legend(
 )
 leg4.get_frame().set_linewidth(0.4)
 
-# ── Colorbars après rendu ─────────────────────────────────────────────────
+# Colorbars après rendu
 fig.canvas.draw()
 
 # (a) — Colorbar discrète zones (verticale, compacte)
@@ -348,7 +340,7 @@ cb2.outline.set_linewidth(0.4)
 cb2.locator = mticker.MaxNLocator(nbins=5, prune='both')
 cb2.update_ticks()
 
-# ── Sauvegarde ────────────────────────────────────────────────────────────
+# Sauvegarde
 OUTPUT_PNG = FIG_DIR + r"\Figure_05_CAH_zonation.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_05_CAH_zonation.pdf"
 

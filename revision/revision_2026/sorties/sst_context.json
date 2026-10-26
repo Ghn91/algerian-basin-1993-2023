@@ -1,6 +1,6 @@
 {
   "source": "data/raw/medsea_sst-l4_1993-2024.nc",
-  "produit": "cmems_SST_MED_SST_L4_REP_OBSERVATIONS_010_021, 0,05°, journalier, GAP-FREE donc RECONSTRUIT",
+  "produit": "cmems_SST_MED_SST_L4_REP_OBSERVATIONS_010_021, 0,05°, journalier, gap-free donc reconstruit",
   "emprise_sst": {
     "sud": 34.53887939453125,
     "nord": 39.45433807373047,
@@ -66,7 +66,7 @@
       "0.5": 0.033333
     },
     "prediction": "l'anomalie froide d'ete doit etre plus marquee entre 0 et +7 E, ou l'indice d'Ekman d'ete est positif sur sept bandes contigues",
-    "temoin": "decalage circulaire des bandes, qui CONSERVE la contiguite — les rebattre la detruirait et rendrait un plancher optimiste"
+    "temoin": "decalage circulaire des bandes, qui conserve la contiguite — les rebattre la detruirait et rendrait un plancher optimiste"
   },
   "mois": 372
 }

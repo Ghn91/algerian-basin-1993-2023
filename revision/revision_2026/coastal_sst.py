@@ -31,16 +31,8 @@ from ekman_african_coast import (
     points_africains,
 )
 
-SST_PAR_DEFAUT = os.path.normpath(
-    os.path.join(
-        RACINE,
-        "..",
-        "THESE_2026",
-        "these-marge-algerienne",
-        "data",
-        "raw",
-        "medsea_sst-l4_1993-2024.nc",
-    )
+SST_PAR_DEFAUT = os.path.join(
+    RACINE, "these", "data", "raw", "medsea_sst-l4_1993-2024.nc"
 )
 DERIVE = os.path.join(DONNEES, "sst_cote_large_mensuelle_1993_2023.csv")
 TENSION = os.path.join(DONNEES, "era5_tension_mensuelle_1993_2023.nc")
@@ -270,7 +262,7 @@ def preparer(source=None):
                     "prediction": "l'anomalie froide d'ete doit etre plus marquee "
                     "entre 0 et +7 E, ou l'indice d'Ekman d'ete est "
                     "positif sur sept bandes contigues",
-                    "temoin": "decalage circulaire des bandes, qui CONSERVE la "
+                    "temoin": "decalage circulaire des bandes, qui conserve la "
                     "contiguite — les rebattre la detruirait et rendrait "
                     "un plancher optimiste",
                 },
@@ -533,6 +525,7 @@ def main(argv):
         return preparer(source)
     if "--produire" in argv:
         return produire()
+    print(__doc__)
     return 0
 
 

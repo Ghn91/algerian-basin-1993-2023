@@ -25,7 +25,7 @@ import cmocean
 import os, warnings
 warnings.filterwarnings('ignore')
 
-# ── Paramètres globaux publication ────────────────────────────────────────
+# Paramètres globaux publication
 plt.rcParams.update({
     'font.family':      'DejaVu Sans',
     'font.size':         8,
@@ -42,7 +42,7 @@ plt.rcParams.update({
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement ────────────────────────────────────────────────────────────
+# Chargement
 print("Chargement des donnees...")
 ds_alti = xr.open_dataset(
     DATA_DIR + r"\cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg"
@@ -53,7 +53,7 @@ ds_mdt = xr.open_dataset(
                r"_mdt-v-u_4.97W-9.97E_35.03N-40.97N_2003-01-01.nc"
 )
 
-# ── Calculs ───────────────────────────────────────────────────────────────
+# Calculs
 print("Calculs en cours...")
 adt_mean  = ds_alti['adt'].mean('time')
 sla_std   = ds_alti['sla'].std('time') * 100
@@ -66,7 +66,7 @@ mdt_u     = ds_mdt['u'].squeeze()
 mdt_v     = ds_mdt['v'].squeeze()
 print("Calculs termines.")
 
-# ── Constantes mise en page ───────────────────────────────────────────────
+# Constantes mise en page
 proj       = ccrs.PlateCarree()
 EXTENT     = [-5, 10, 35, 41]
 LAND_COLOR = '#DDD5C0'
@@ -76,7 +76,7 @@ LABEL_KW   = dict(fontsize=9, fontweight='bold', va='top', ha='left',
                   bbox=dict(facecolor='white', alpha=0.80,
                             edgecolor='none', boxstyle='round,pad=0.2'))
 
-# ── Figure — dimensions double colonne ────────────────────────────────────
+# Figure — dimensions double colonne
 # Largeur 178 mm = 7.0 inches
 # On laisse matplotlib gérer la hauteur via l'aspect cartopy
 fig = plt.figure(figsize=(7.0, 3.9))
@@ -94,9 +94,7 @@ gs = gridspec.GridSpec(
     bottom=0.09
 )
 
-# ─────────────────────────────────────────────────────────────────────────
 # FONCTIONS UTILITAIRES
-# ─────────────────────────────────────────────────────────────────────────
 def setup_ax(ax, label, title):
     """Configure un GeoAxes au standard publication."""
     ax.set_extent(EXTENT, crs=proj)
@@ -151,9 +149,7 @@ def add_cbar(fig, mappable, ax, label, fmt, ticks=None):
     return cb
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (a) — ADT + VECTEURS COURANT
-# ═══════════════════════════════════════════════════════════════════════════
 ax1 = fig.add_subplot(gs[0, 0], projection=proj)
 setup_ax(ax1, '(a)', 'Mean ADT and geostrophic currents (1993-2023)')
 
@@ -190,9 +186,7 @@ ax1.quiverkey(q1, X=0.76, Y=0.06, U=0.3,
               color='white', labelcolor='white',
               coordinates='axes')
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (b) — EKE MOYENNE
-# ═══════════════════════════════════════════════════════════════════════════
 ax2 = fig.add_subplot(gs[0, 1], projection=proj)
 setup_ax(ax2, '(b)', 'Mean EKE (1993-2023)')
 
@@ -209,9 +203,7 @@ ax2.contour(
     transform=proj, zorder=3
 )
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (c) — SLA STD
-# ═══════════════════════════════════════════════════════════════════════════
 ax3 = fig.add_subplot(gs[1, 0], projection=proj)
 setup_ax(ax3, '(c)', 'SLA standard deviation (1993-2023)')
 
@@ -229,9 +221,7 @@ ax3.contour(
     transform=proj, zorder=3
 )
 
-# ═══════════════════════════════════════════════════════════════════════════
 # PANNEAU (d) — MDT + VECTEURS
-# ═══════════════════════════════════════════════════════════════════════════
 ax4 = fig.add_subplot(gs[1, 1], projection=proj)
 setup_ax(ax4, '(d)', 'Mean Dynamic Topography (MDT-CMEMS_2024_EUR)')
 
@@ -258,9 +248,7 @@ q4 = ax4.quiver(
     color='black', alpha=0.45
 )
 
-# ═══════════════════════════════════════════════════════════════════════════
 # COLORBARS — positionnement manuel après rendu
-# ═══════════════════════════════════════════════════════════════════════════
 fig.canvas.draw()
 
 add_cbar(fig, cf1, ax1, 'ADT (m)',
@@ -276,9 +264,7 @@ add_cbar(fig, cf3, ax3, 'SLA std (cm)',
 add_cbar(fig, cf4, ax4, 'MDT (m)',
          fmt='%.2f')
 
-# ═══════════════════════════════════════════════════════════════════════════
 # SAUVEGARDE
-# ═══════════════════════════════════════════════════════════════════════════
 OUTPUT_PNG = FIG_DIR + r"\Figure_01_mean_circulation.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_01_mean_circulation.pdf"
 

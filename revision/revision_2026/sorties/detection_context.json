@@ -3,5 +3,5 @@
   "arguments_attendus": 6,
   "pas_de_grille_deg": 0.04166412353515625,
   "appel_relu": true,
-  "un_enregistrement_par_date": true
+  "un_enregistrement_par_date": false
 }

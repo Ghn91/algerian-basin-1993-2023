@@ -20,7 +20,11 @@ revision/            scripts, derived inputs and outputs of the revised
 MANIFEST.csv         every file of this version, its size, SHA-256 and origin
 ```
 
-The exploratory notebooks of the original analysis are part of version 1.0.
+The scripts of `src/` reproduce the figures of the submitted manuscript. The
+figure captions and the sentences some of them print are those of the
+submitted version; the results of the revised manuscript are produced by the
+scripts of `revision/`. The exploratory notebooks of the original analysis
+are part of version 1.0.
 
 ## Data
 

@@ -224,9 +224,7 @@ def produire(chemin_netcdf):
                 "mailles_sans_aucun_pas_valide": mailles_vides,
                 "minimum_pas_valides_declare": MINIMUM_PAS_VALIDES,
                 "champs": archive,
-                "note": "produit a constellation STABLE — voir le § 8 ter b de la "
-                "conception ; les valeurs ne sont pas comparables a celles du "
-                "travail d'origine, qui emploie l'autre produit",
+                "note": "produit a constellation stable ; les valeurs ne sont pas comparables a celles du travail d'origine, qui emploie l'autre produit",
             },
             indent=2,
             ensure_ascii=False,

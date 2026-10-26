@@ -1,0 +1,21 @@
+name: eddy_detection
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - numpy==1.22.4
+    - matplotlib==3.7.5
+    - contourpy==1.2.1
+    - scipy==1.13.1
+    - xarray==2023.1.0
+    - pandas==1.5.3
+    - netCDF4==1.5.8
+    - numba==0.55.2
+    - llvmlite==0.38.1
+    - opencv-python==4.8.1.78
+    - tqdm
+    - py-eddy-tracker==3.6.1
+variables:
+  NUMBA_DISABLE_INTEL_SVML: "1"

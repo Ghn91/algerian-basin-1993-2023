@@ -220,7 +220,7 @@ def regard_sur_le_manuscrit(courbe, stats):
             "reference": "-",
             "publie_au_manuscrit": 1.0,
             "mesure_par_la_these": float(len(divergentes)),
-            "remarque": "le manuscrit en declare UNE seule ; ecart de fond, mais "
+            "remarque": "le manuscrit en declare une seule ; ecart de fond, mais "
             "sur une autre emprise, donc pas une contradiction",
         },
     ]
@@ -361,7 +361,7 @@ def produire():
         json.dumps(
             {
                 "produit": "MEDSEA PHY courants 1/24 deg, uo et vo a 1,02 m — le "
-                "produit des chapitres 4 et 5, NON l'altimetrie",
+                "produit des chapitres 4 et 5, non l'altimetrie",
                 "descripteurs": "moyenne temporelle de u et de v, standardisees — deux, "
                 "et deux seulement ; la divergence decrit les classes "
                 "apres coup et n'entre pas dans la classification",
@@ -370,8 +370,7 @@ def produire():
                     "lat": [float(lats.min()), float(lats.max())],
                 },
                 "emprise_article": {"lon": [-5.00, 10.00], "lat": [35.02, 40.98]},
-                "replication": "NON — les deux emprises ne coincident pas ; ecart "
-                "declare au § 3.10",
+                "replication": "non : les deux emprises ne coincident pas",
                 "periode": list(bornes),
                 "mailles_valides": int(valide.sum()),
                 "balayage": [BALAYAGE.start, BALAYAGE.stop - 1],

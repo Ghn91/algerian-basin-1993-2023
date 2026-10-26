@@ -1,10 +1,10 @@
 grandeur,valeur,effectif,source,lecture
-correlation_allsat_0125_allsat_025,0.999349,372,"products_context.json, confronte au derive mensuel",effet de GRILLE seul : le bloc-moyennage deplace le niveau sans deformer la serie
-correlation_allsat_025_twosat_025,0.727868,372,"products_context.json, confronte au derive mensuel","effet de CONSTELLATION seul, A MAILLE EGALE — c'est CELLE-CI que cite la phrase sur la decorrelation"
-correlation_allsat_0125_twosat_025,0.713070,372,"products_context.json, confronte au derive mensuel","les deux produits TELS QU'ILS SONT PUBLIES : melange grille et constellation, ne mesure aucun des deux effets seul"
-rapport_resolution_minimum,0.907337,31,products_ratios_by_year.csv,le JSON n'archive que les bornes du rapport de CONSTELLATION ; celles-ci manquaient
-rapport_resolution_maximum,0.930639,31,products_ratios_by_year.csv,"le rapport de resolution est PLAT sur la periode, a comparer a la derive de la constellation"
-rapport_constellation_cinq_premieres_annees,1.228945,5,products_ratios_by_year.csv,le TWO-SAT voyait PLUS d'energie que l'ALL-SAT degrade au debut de la periode
-rapport_constellation_cinq_dernieres_annees,0.714528,5,products_ratios_by_year.csv,et nettement MOINS a la fin : l'attenuation n'est pas stationnaire
+correlation_allsat_0125_allsat_025,0.999349,372,"products_context.json, confronte au derive mensuel",effet de grille seul : le bloc-moyennage deplace le niveau sans deformer la serie
+correlation_allsat_025_twosat_025,0.727868,372,"products_context.json, confronte au derive mensuel","effet de constellation seul, a maille egale — c'est celle-ci que cite la phrase sur la decorrelation"
+correlation_allsat_0125_twosat_025,0.713070,372,"products_context.json, confronte au derive mensuel","les deux produits tels qu'ils sont publies : melange grille et constellation, ne mesure aucun des deux effets seul"
+rapport_resolution_minimum,0.907337,31,products_ratios_by_year.csv,le JSON n'archive que les bornes du rapport de constellation ; celles-ci manquaient
+rapport_resolution_maximum,0.930639,31,products_ratios_by_year.csv,"le rapport de resolution est plat sur la periode, a comparer a la derive de la constellation"
+rapport_constellation_cinq_premieres_annees,1.228945,5,products_ratios_by_year.csv,le TWO-SAT voyait plus d'energie que l'ALL-SAT degrade au debut de la periode
+rapport_constellation_cinq_dernieres_annees,0.714528,5,products_ratios_by_year.csv,et nettement moins a la fin : l'attenuation n'est pas stationnaire
 derive_du_rapport_constellation_par_decennie,-0.176992,31,"products_ratios_by_year.csv, pente de Sen de altimetry_products",a confronter a l'exces de tendance
 exces_de_tendance_relative,0.173165,2,products_trends.csv,ALL-SAT moins TWO-SAT — difference des deux pentes

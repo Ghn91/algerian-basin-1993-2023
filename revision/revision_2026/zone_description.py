@@ -57,39 +57,15 @@ GEBCO = next(
             os.path.join(
                 os.environ.get("THESE_DEPOT", "\0"), "data", "raw", "gebco_2026.nc"
             ),
-            os.path.normpath(
-                os.path.join(
-                    RACINE,
-                    "..",
-                    "THESE_2026",
-                    "these-marge-algerienne",
-                    "data",
-                    "raw",
-                    "gebco_2026.nc",
-                )
-            ),
-            os.path.normpath(
-                os.path.join(
-                    RACINE,
-                    "..",
-                    "these-marge-algerienne",
-                    "data",
-                    "raw",
-                    "gebco_2026.nc",
-                )
-            ),
             os.path.join(RACINE, "these", "data", "raw", "gebco_2026.nc"),
         )
         if os.path.isfile(p)
     ),
     "",
 )
-ATLAS = {
-    "anticyclone": os.path.join(
-        RACINE, "origine_2026-03", "anticyclones_1993_2023_ALL.csv"
-    ),
-    "cyclone": os.path.join(RACINE, "origine_2026-03", "cyclones_1993_2023_ALL.csv"),
-}
+sys.path.insert(0, DOSSIER)
+from eddy_atlas import ATLAS_FICHIERS as ATLAS
+
 MASQUE = os.path.join(DONNEES, "masque_cotier_medsea.npz")
 DERIVE = os.path.join(DONNEES, "zones_champs_moyens.npz")
 LOCALISATION = os.path.join(SORTIES, "zonation_zone_location.csv")
@@ -585,3 +561,4 @@ if __name__ == "__main__":
     if "--produire" in sys.argv:
         r = deriver()
         sys.exit(r if r else decrire())
+    print(__doc__)

@@ -41,14 +41,14 @@ plt.rcParams.update({
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement ALL-SAT ────────────────────────────────────────────────────
+# Chargement ALL-SAT
 print("Chargement ALL-SAT...")
 ds = xr.open_dataset(
     DATA_DIR + r"\cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg"
                r"_P1D_multi-vars_4.94W-9.94E_35.06N-40.94N_1993-01-01-2023-12-31.nc"
 )
 
-# ── Calcul EKE ALL-SAT ────────────────────────────────────────────────────
+# Calcul EKE ALL-SAT
 print("Calcul EKE ALL-SAT...")
 eke_daily  = (0.5*(ds['ugosa']**2 + ds['vgosa']**2)*1e4
               ).mean(dim=['latitude','longitude'], skipna=True)
@@ -78,7 +78,7 @@ anom_smooth = uniform_filter1d(eke_anom.values, size=12, mode='nearest')
 ds.close()
 print("Calculs termines.")
 
-# ── Figure 2 ──────────────────────────────────────────────────────────────
+# Figure 2
 fig = plt.figure(figsize=(7.0, 6.8))
 fig.patch.set_facecolor('white')
 
@@ -109,9 +109,7 @@ def style_ax(ax, xlabel=False):
     if not xlabel:
         ax.tick_params(labelbottom=False)
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (a) — Série temporelle EKE + tendance
-# ─────────────────────────────────────────────────────────────────────────
 ax1 = fig.add_subplot(gs[0])
 style_ax(ax1)
 
@@ -153,9 +151,7 @@ ax1.xaxis.set_major_locator(mdates.YearLocator(5))
 ax1.xaxis.set_minor_locator(mdates.YearLocator(1))
 ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (b) — Cycle saisonnier
-# ─────────────────────────────────────────────────────────────────────────
 ax2 = fig.add_subplot(gs[1])
 style_ax(ax2)
 
@@ -201,9 +197,7 @@ ax2.legend(framealpha=0.85, edgecolor='#CCCCCC',
            fancybox=False, handlelength=1.2,
            borderpad=0.5).get_frame().set_linewidth(0.4)
 
-# ─────────────────────────────────────────────────────────────────────────
 # PANNEAU (c) — Anomalies interannuelles désaisonnalisées
-# ─────────────────────────────────────────────────────────────────────────
 ax3 = fig.add_subplot(gs[2])
 style_ax(ax3, xlabel=True)
 
@@ -248,7 +242,7 @@ ax3.xaxis.set_major_locator(mdates.YearLocator(5))
 ax3.xaxis.set_minor_locator(mdates.YearLocator(1))
 ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 
-# ── Sauvegarde ─────────────────────────────────────────────────────────
+# Sauvegarde
 OUTPUT_PNG = FIG_DIR + r"\Figure_02_EKE_timeseries.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_02_EKE_timeseries.pdf"
 
@@ -261,7 +255,7 @@ print(f"PNG -> {OUTPUT_PNG}")
 print(f"PDF -> {OUTPUT_PDF}")
 plt.show()
 
-# ── Caption ───────────────────────────────────────────────────────────────
+# Caption
 print("""
 CAPTION FIGURE 2:
 Figure 2. Temporal variability of basin-averaged eddy kinetic energy (EKE)

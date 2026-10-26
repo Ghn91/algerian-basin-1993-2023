@@ -36,9 +36,7 @@ from scipy.ndimage import gaussian_filter
 import warnings
 warnings.filterwarnings('ignore')
 
-# ════════════════════════════════════════════════════════════════════
 # FICHIERS — noms exacts confirmés par diagnostic
-# ════════════════════════════════════════════════════════════════════
 
 F_TWOSAT = BASE + r"\c3s_obs-sl_glo_phy-ssh_my_twosat-l4-duacs-0.25deg_P1D_multi-vars_4.88W-9.88E_35.12N-40.88N_1993-01-01-2023-12-31.nc"
 F_SST    = BASE + r"\cmems_SST_MED_SST_L4_REP_OBSERVATIONS_010_021_multi-vars_4.96W-9.95E_35.04N-40.96N_1993-01-01-2023-12-31.nc"
@@ -49,9 +47,7 @@ F_MLD    = BASE + r"\cmems_mod_med_phy-mld_my_4.2km_P1D-m_mlotst_5.00W-10.00E_35
 OUT_MP4 = BASE + r"\FIGURES\animation_bassin_algerien_v3.mp4"
 OUT_GIF = BASE + r"\FIGURES\animation_bassin_algerien_v3.gif"
 
-# ════════════════════════════════════════════════════════════════════
 # PARAMÈTRES — ajuster selon votre PC
-# ════════════════════════════════════════════════════════════════════
 DPI    = 150    # 150=qualité pub · 100=rapide preview
 FPS    = 20
 SMOOTH = 0.8    # lissage gaussien (pixels)
@@ -60,12 +56,10 @@ print("=" * 65)
 print("ANIMATION BASSIN ALGÉRIEN — chargement et rééchantillonnage")
 print("=" * 65)
 
-# ════════════════════════════════════════════════════════════════════
 # [1] DUACS TWO-SAT — SLA + ugos + vgos
 #     Variables confirmées : adt, sla, ugos, vgos, tpa_correction
 #     Dims : (time=11322, latitude=24, longitude=60)
-#     Période : 1993-01-01 → 2023-12-31
-# ════════════════════════════════════════════════════════════════════
+#     Période : 1993-01-01 -> 2023-12-31
 print("\n[1/4] DUACS TWO-SAT — SLA + vitesses (rééchantillonnage mensuel...)")
 ds_sl = xr.open_dataset(F_TWOSAT)   # PAS de chunks — dask absent
 
@@ -73,7 +67,7 @@ sla_daily  = ds_sl['sla']           # (11322, 24, 60) en mètres
 ugos_daily = ds_sl['ugos']          # (11322, 24, 60) en m/s
 vgos_daily = ds_sl['vgos']          # (11322, 24, 60) en m/s
 
-# Rééchantillonnage mensuel — réduit 11322 → ~372 pas de temps
+# Rééchantillonnage mensuel — réduit 11322 -> ~372 pas de temps
 sla_m  = sla_daily.resample(time='MS').mean()
 ugos_m = ugos_daily.resample(time='MS').mean()
 vgos_m = vgos_daily.resample(time='MS').mean()
@@ -95,22 +89,20 @@ lat_sl   = sla_m.latitude.values    # (24,)
 N        = len(time_arr)
 
 ds_sl.close()
-print(f"  OK — {N} mois  ({str(time_arr[0])[:7]} → {str(time_arr[-1])[:7]})")
+print(f"  OK — {N} mois  ({str(time_arr[0])[:7]} -> {str(time_arr[-1])[:7]})")
 print(f"  EKT : moy={np.nanmean(ekt_arr):.1f}  max97={np.nanpercentile(ekt_arr,97):.1f} cm²/s²")
 
 ekt_vmax = float(np.nanpercentile(ekt_arr, 97))
 sla_lim  = float(np.nanpercentile(np.abs(sla_arr), 96))
 
-# ════════════════════════════════════════════════════════════════════
 # [2] SST OBSERVÉE L4 — analysed_sst en Kelvin
 #     Dims : (time=11322, latitude=119, longitude=299)
-#     Grille plus fine → on la rééchantillonne aussi
-# ════════════════════════════════════════════════════════════════════
+#     Grille plus fine -> on la rééchantillonne aussi
 print("\n[2/4] SST L4 OBSERVATIONS (rééchantillonnage mensuel...)")
 ds_sst = xr.open_dataset(F_SST)
 sst_daily = ds_sst['analysed_sst']          # Kelvin
 sst_m_K   = sst_daily.resample(time='MS').mean()
-sst_m_C   = sst_m_K - 273.15               # → Celsius
+sst_m_C   = sst_m_K - 273.15               # -> Celsius
 # Anomalie par rapport à la climatologie mensuelle
 sst_clim  = sst_m_C.groupby('time.month').mean('time')
 sst_anom  = sst_m_C.groupby('time.month') - sst_clim
@@ -123,11 +115,9 @@ sst_lim  = float(np.nanpercentile(np.abs(sst_arr), 96))
 ds_sst.close()
 print(f"  OK — anomalies SST ±{sst_lim:.2f}°C")
 
-# ════════════════════════════════════════════════════════════════════
 # [3] CHLOROPHYLLE-a
 #     Dims : (time=9131, depth=1, latitude=144, longitude=361)
-#     Période : 1999–2023 → aligner sur time_arr
-# ════════════════════════════════════════════════════════════════════
+#     Période : 1999–2023 -> aligner sur time_arr
 print("\n[3/4] Chlorophylle-a BGC (1999–2023)...")
 ds_chl  = xr.open_dataset(F_CHL)
 chl_daily = ds_chl['chl'].isel(depth=0)    # supprimer dim depth
@@ -137,7 +127,7 @@ time_chl    = chl_m.time.values
 lon_chl     = chl_m.longitude.values
 lat_chl     = chl_m.latitude.values
 ds_chl.close()
-print(f"  OK — {len(time_chl)} mois Chl-a  [{str(time_chl[0])[:7]} → {str(time_chl[-1])[:7]}]")
+print(f"  OK — {len(time_chl)} mois Chl-a  [{str(time_chl[0])[:7]} -> {str(time_chl[-1])[:7]}]")
 
 # Index de correspondance chl ↔ time_arr (pour les frames post-1999)
 def get_chl_idx(t):
@@ -147,10 +137,8 @@ def get_chl_idx(t):
     diffs = np.abs((time_chl - t).astype('int64'))
     return int(np.argmin(diffs))
 
-# ════════════════════════════════════════════════════════════════════
 # [4] TEMPÉRATURE RÉANALYSE — thetao (°C)
 #     Dims : (time=11322, depth=1, latitude=144, longitude=361)
-# ════════════════════════════════════════════════════════════════════
 print("\n[4/4] Température réanalyse (thetao)...")
 ds_temp   = xr.open_dataset(F_TEMP)
 temp_daily = ds_temp['thetao'].isel(depth=0)
@@ -161,17 +149,13 @@ lat_temp   = temp_m.latitude.values
 ds_temp.close()
 print(f"  OK — thetao °C  shape={temp_arr.shape}")
 
-# ════════════════════════════════════════════════════════════════════
 # GRILLES 2D
-# ════════════════════════════════════════════════════════════════════
 LON2D_sl,  LAT2D_sl  = np.meshgrid(lon_sl,  lat_sl)
 LON2D_sst, LAT2D_sst = np.meshgrid(lon_sst, lat_sst)
 LON2D_chl, LAT2D_chl = np.meshgrid(lon_chl, lat_chl)
 LON2D_tmp, LAT2D_tmp = np.meshgrid(lon_temp, lat_temp)
 
-# ════════════════════════════════════════════════════════════════════
 # CONSTRUCTION FIGURE — style WHOI/Copernicus
-# ════════════════════════════════════════════════════════════════════
 proj = ccrs.PlateCarree()
 fig  = plt.figure(figsize=(18, 11), dpi=DPI)
 fig.patch.set_facecolor('#03101f')
@@ -199,7 +183,7 @@ ax_stat.set_facecolor('#020c1e')
 ax_stat.set_xticks([]); ax_stat.set_yticks([])
 for sp in ax_stat.spines.values(): sp.set_edgecolor('#152540')
 
-# ─── Fond cartographique ──────────────────────────────────────────
+# Fond cartographique
 ax.add_feature(cfeature.LAND.with_scale('10m'),
                facecolor='#0d1a0d', edgecolor='#1c2c1c', linewidth=0.4, zorder=8)
 ax.add_feature(cfeature.COASTLINE.with_scale('10m'),
@@ -214,29 +198,29 @@ gl.xlabel_style = gl.ylabel_style = {'size': 7.5, 'color': '#4a8aaa'}
 gl.xlocator = mticker.FixedLocator([-2, 0, 2, 4, 6, 8])
 gl.ylocator = mticker.FixedLocator([35, 36, 37, 38, 39, 40, 41])
 
-# ─── Couche 1 : SST anomalie (fond riche) ─────────────────────────
+# Couche 1 : SST anomalie (fond riche)
 sst0 = gaussian_filter(np.nan_to_num(sst_arr[0]), sigma=SMOOTH*2)
 pcm_sst = ax.pcolormesh(LON2D_sst, LAT2D_sst, sst0,
                          cmap=cmocean.cm.balance,
                          vmin=-sst_lim, vmax=sst_lim,
                          transform=proj, zorder=1, shading='gouraud', alpha=0.82)
 
-# ─── Couche 2 : EKT (overlay énergétique) ─────────────────────────
+# Couche 2 : EKT (overlay énergétique)
 ekt0 = gaussian_filter(np.nan_to_num(ekt_arr[0]), sigma=SMOOTH)
 pcm_ekt = ax.pcolormesh(LON2D_sl, LAT2D_sl, ekt0,
                          cmap=cmocean.cm.thermal,
                          vmin=0, vmax=ekt_vmax,
                          transform=proj, zorder=2, shading='gouraud', alpha=0.52)
 
-# ─── Couche 3 : Contours SLA (topographie dynamique) ──────────────
+# Couche 3 : Contours SLA (topographie dynamique)
 sla0_sm = gaussian_filter(np.nan_to_num(sla_arr[0]), sigma=SMOOTH)
 cs_sla = [ax.contour(LON2D_sl, LAT2D_sl, sla0_sm,
                       levels=12, cmap='coolwarm',
                       linewidths=0.5, alpha=0.55,
                       transform=proj, zorder=3)]
 
-# ─── Couche 4 : Streamlines (courant algérien) ────────────────────
-step = 2   # sous-échantillonnage grille 0.25° → step=2 OK
+# Couche 4 : Streamlines (courant algérien)
+step = 2   # sous-échantillonnage grille 0.25° -> step=2 OK
 spd_vmax = float(np.nanpercentile(spd_arr, 97))  # calculé ici, utilisé partout
 
 def norm_speed(s):
@@ -256,7 +240,7 @@ stream_obj = [ax.streamplot(
     arrowsize=0.8, arrowstyle='->',
     transform=proj, zorder=4)]
 
-# ─── Couche 5 : Chl-a (overlay vert si disponible) ────────────────
+# Couche 5 : Chl-a (overlay vert si disponible)
 chl_idx0 = get_chl_idx(time_arr[0])
 chl_obj = [None]
 if chl_idx0 is not None:
@@ -268,7 +252,7 @@ if chl_idx0 is not None:
                                 transform=proj, zorder=5,
                                 shading='gouraud', alpha=0.28)
 
-# ─── Colorbars ────────────────────────────────────────────────────
+# Colorbars
 cax1 = fig.add_axes([0.73, 0.55, 0.012, 0.40])
 cb1  = plt.colorbar(pcm_ekt, cax=cax1)
 cb1.set_label('EKT [cm²/s²]', color='#8aaacc', fontsize=8, labelpad=3)
@@ -283,7 +267,7 @@ cb2.ax.yaxis.set_tick_params(color='#4a8aaa', labelsize=5)
 plt.setp(cb2.ax.yaxis.get_ticklabels(), color='#4a8aaa')
 cb2.outline.set_edgecolor('#152540')
 
-# ─── Textes fixes ─────────────────────────────────────────────────
+# Textes fixes
 title_main = ax.text(0.5, 1.010,
     'Bassin Algérien — Dynamique méso-échelle de surface',
     transform=ax.transAxes, color='#c0d8f0',
@@ -305,7 +289,7 @@ fig.text(0.50, 0.005,
     'Données CMEMS DUACS TWO-SAT · SST L4 OBS · BGC réanalyse  |  1993–2023',
     ha='center', fontsize=6.5, color='#253545', style='italic')
 
-# ─── Panneau EKT time series ──────────────────────────────────────
+# Panneau EKT time series
 ekt_basin = [float(np.nanmean(ekt_arr[i])) for i in range(N)]
 years_f   = [1993 + i/12 for i in range(N)]
 
@@ -327,7 +311,7 @@ ts_fill  = ax_ekt.fill_between([], [], alpha=0.15, color='#5DCAA5')
 ts_line, = ax_ekt.plot([], [], color='#5DCAA5', lw=1.0)
 ts_dot,  = ax_ekt.plot([], [], 'o', color='#EF9F27', ms=4.5, zorder=5)
 
-# ─── Panneau Chl-a time series ────────────────────────────────────
+# Panneau Chl-a time series
 chl_basin_ts = {}
 for ci, t in enumerate(time_chl):
     # Trouver l'index dans time_arr
@@ -348,24 +332,24 @@ chl_dot,  = ax_chl.plot([], [], 'o', color='#5DCAA5', ms=4, zorder=5)
 ax_chl.tick_params(colors='#4a8aaa', labelsize=6)
 for sp in ax_chl.spines.values(): sp.set_edgecolor('#152540')
 
-# ─── Panneau stats fixes ──────────────────────────────────────────
+# Panneau stats fixes
 stats_data = [
-    ('─── EKT',           '',                    '#5DCAA5',  True),
+    ('--- EKT',           '',                    '#5DCAA5',  True),
     ('Tendance',          '+2.06 cm²/s²/déc',    '#EF9F27',  False),
     ('p-value',           '0.004',               '#EF9F27',  False),
     ('Rupture Pettitt',   '2005',                '#D85A30',  False),
     ('Wavelet dominante', '74 mois / 6.2 ans',   '#AFA9EC',  False),
     ('',                  '',                    '',         False),
-    ('─── FORÇAGE',       '',                    '#85B7EB',  True),
+    ('--- FORÇAGE',       '',                    '#85B7EB',  True),
     ('WeMO r',            '−0.218  (p=0.0005)',  '#85B7EB',  False),
     ('WeMO lag',          '−2 mois',             '#85B7EB',  False),
     ('NAO r',             '+0.038  (NS)',         '#444461',  False),
     ('',                  '',                    '',         False),
-    ('─── EOF',           '',                    '#9FE1CB',  True),
+    ('--- EOF',           '',                    '#9FE1CB',  True),
     ('EOF1',              '54.2 %',              '#9FE1CB',  False),
     ('4 modes',           '66.2 %',              '#9FE1CB',  False),
     ('',                  '',                    '',         False),
-    ('─── EDDIES',        '',                    '#F0997B',  True),
+    ('--- EDDIES',        '',                    '#F0997B',  True),
     ('Anticyclones',      '7,215 obs.',          '#F0997B',  False),
     ('Max AC (2023)',      '313 obs.',            '#F0997B',  False),
     ('Cyclones',          '4,525 obs.',          '#85B7EB',  False),
@@ -381,9 +365,7 @@ for idx, (lbl, val, col, bold) in enumerate(stats_data):
         ax_stat.text(0.97, y, val, transform=ax_stat.transAxes,
                      color=col, fontsize=7.0, ha='right', fontweight='bold')
 
-# ════════════════════════════════════════════════════════════════════
 # FONCTION UPDATE — le cœur de l'animation
-# ════════════════════════════════════════════════════════════════════
 chl_logmax = float(np.nanpercentile(np.log1p(chl_arr_raw[~np.isnan(chl_arr_raw)]), 97))
 
 def update(frame):
@@ -392,21 +374,21 @@ def update(frame):
     date_str = str(time_arr[i])[:7]
     ekt_mean = ekt_basin[i]
 
-    # ── Titre & stats live ──────────────────────────────────────────
+    # Titre & stats live
     date_txt.set_text(date_str)
     ekt_live.set_text(
         f'EKT bassin : {ekt_mean:.1f} cm²/s²\n'
         f'SLA moy.   : {float(np.nanmean(sla_arr[i]))*100:.1f} cm')
 
-    # ── SST anomalie ────────────────────────────────────────────────
+    # SST anomalie
     sst_i = gaussian_filter(np.nan_to_num(sst_arr[i]), sigma=SMOOTH * 2.0)
     pcm_sst.set_array(sst_i.ravel())
 
-    # ── EKT ─────────────────────────────────────────────────────────
+    # EKT
     ekt_i = gaussian_filter(np.nan_to_num(ekt_arr[i]), sigma=SMOOTH)
     pcm_ekt.set_array(ekt_i.ravel())
 
-    # ── Contours SLA ────────────────────────────────────────────────
+    # Contours SLA
     for coll in cs_sla[0].collections:
         try: coll.remove()
         except: pass
@@ -416,7 +398,7 @@ def update(frame):
                             linewidths=0.5, alpha=0.55,
                             transform=proj, zorder=3)
 
-    # ── Streamlines ─────────────────────────────────────────────────
+    # Streamlines
     try:
         stream_obj[0].lines.remove()
         for arr in stream_obj[0].arrows.patches:
@@ -434,18 +416,18 @@ def update(frame):
         arrowsize=0.8, arrowstyle='->',
         transform=proj, zorder=4)
 
-    # ── Chl-a (si disponible pour cette date) ───────────────────────
+    # Chl-a (si disponible pour cette date)
     ci = get_chl_idx(time_arr[i])
     if ci is not None and chl_obj[0] is not None:
         chl_i = np.log1p(gaussian_filter(
             np.nan_to_num(chl_arr_raw[ci]), sigma=SMOOTH * 1.5))
         chl_obj[0].set_array(chl_i.ravel())
 
-    # ── Time series EKT ─────────────────────────────────────────────
+    # Time series EKT
     ts_line.set_data(years_f[:i+1], ekt_basin[:i+1])
     ts_dot.set_data([yr], [ekt_mean])
 
-    # ── Time series Chl ─────────────────────────────────────────────
+    # Time series Chl
     chl_x_now = [years_f[k] for k in chl_x if k <= i]
     chl_y_now = [chl_basin_ts[k] for k in chl_x if k <= i]
     chl_line.set_data(chl_x_now, chl_y_now)
@@ -460,16 +442,14 @@ def update(frame):
     return [pcm_sst, pcm_ekt, ts_line, ts_dot, ekt_live, date_txt]
 
 
-# ════════════════════════════════════════════════════════════════════
 # RENDU — MP4 puis GIF
-# ════════════════════════════════════════════════════════════════════
 print(f"\n{'='*65}")
 print(f"RENDU MP4 : {N} frames · {DPI} dpi · {FPS} fps")
 print(f"Sortie    : {OUT_MP4}")
 print(f"Durée est.: {N * 10 // 60}–{N * 20 // 60} minutes selon votre PC")
 print(f"{'='*65}\n")
 
-# ─── Vérification ffmpeg ──────────────────────────────────────────
+# Vérification ffmpeg
 import shutil, subprocess, os
 
 ffmpeg_ok = shutil.which('ffmpeg') is not None
@@ -494,11 +474,11 @@ if ffmpeg_ok:
 else:
     print("ATTENTION : ffmpeg introuvable.")
     print("Installez-le avec : conda install -c conda-forge ffmpeg")
-    print("En attendant → rendu GIF direct avec Pillow...\n")
+    print("En attendant -> rendu GIF direct avec Pillow...\n")
     ani = animation.FuncAnimation(
         fig, update, frames=N, interval=1000 // FPS, blit=False)
 
-# ─── GIF Pillow (fonctionne toujours, sans ffmpeg) ───────────────
+# GIF Pillow (fonctionne toujours, sans ffmpeg)
 print("Génération GIF (1 frame sur 3)...")
 from PIL import Image
 import io

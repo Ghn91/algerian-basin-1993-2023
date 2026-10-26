@@ -378,7 +378,7 @@ def produire(chemin_netcdf, tirages=TIRAGES):
                 "graine_plancher": GRAINE,
                 "graine_puissance": GRAINE_PUISSANCE,
                 "note": "le p de Pettitt est l'approximation de l'auteur, bornee a 1 ; "
-                "le temoin monotone ne porte AUCUNE rupture, par construction",
+                "le temoin monotone ne porte aucune rupture, par construction",
             },
             indent=2,
             ensure_ascii=False,

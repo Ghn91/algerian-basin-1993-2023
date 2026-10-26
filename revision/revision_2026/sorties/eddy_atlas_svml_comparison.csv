@@ -1,0 +1,18 @@
+grandeur,valeur
+structures comparees,281402
+jours dont le compte differe,0
+lon en desaccord,220821
+lon ecart maximal,0.071400
+lat en desaccord,220066
+lat ecart maximal,0.068200
+amplitude en desaccord,0
+amplitude ecart maximal,0.000000
+radius_s en desaccord,66
+radius_s ecart maximal,7047.441406
+radius_e en desaccord,0
+radius_e ecart maximal,0.000000
+speed_average en desaccord,145
+speed_average ecart maximal,0.004246
+deplacement median (deg),0.008684
+deplacement maximal (deg),0.082685
+atlas compare,atlas_recalcule_svml

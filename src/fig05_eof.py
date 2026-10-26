@@ -46,7 +46,7 @@ plt.rcParams.update({
 FIG_DIR  = DATA_DIR + r"\FIGURES\PUBLICATION"
 os.makedirs(FIG_DIR, exist_ok=True)
 
-# ── Chargement + préparation SLA ──────────────────────────────────────────
+# Chargement + préparation SLA
 print("Chargement SLA allsat...")
 ds = xr.open_dataset(
     DATA_DIR + r"\cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg"
@@ -58,7 +58,7 @@ sla_anom    = sla_monthly.groupby('time.month') - sla_clim
 sla_filled  = sla_anom.fillna(0.0)
 ds.close()
 
-# ── EOF ───────────────────────────────────────────────────────────────────
+# EOF
 print("Calcul EOF...")
 solver   = Eof(sla_filled, weights=None)
 n_modes  = 4
@@ -69,7 +69,7 @@ print("Variance expliquee :")
 for i in range(n_modes):
     print(f"  EOF{i+1} : {float(var_frac[i])*100:.1f}%")
 
-# ── Configuration figure ──────────────────────────────────────────────────
+# Configuration figure
 proj       = ccrs.PlateCarree()
 EXTENT     = [-5, 10, 35, 41]
 LAND_COLOR = '#DDD5C0'
@@ -147,14 +147,14 @@ def style_pc_ax(ax, label, xlabel=False):
     if not xlabel:
         ax.tick_params(labelbottom=False)
 
-# ── Stockage colorbars pour ajout après canvas.draw() ────────────────────
+# Stockage colorbars pour ajout après canvas.draw()
 cbar_data = []
 
 for mode in range(n_modes):
     var_pct  = float(var_frac[mode]) * 100
     row      = mode
 
-    # ── Carte spatiale EOF (colonne gauche) ───────────────────────────────
+    # Carte spatiale EOF (colonne gauche)
     ax_map = fig.add_subplot(gs[row, 0], projection=proj)
     setup_geoax(ax_map, PANEL_LABELS_MAP[mode])
     ax_map.set_title(
@@ -179,7 +179,7 @@ for mode in range(n_modes):
     )
     cbar_data.append((cf, ax_map, f'Covariance (m)', '%.3f'))
 
-    # ── Série temporelle PC (colonne droite) ──────────────────────────────
+    # Série temporelle PC (colonne droite)
     ax_pc   = fig.add_subplot(gs[row, 1])
     is_last = (mode == n_modes - 1)
     style_pc_ax(ax_pc, PANEL_LABELS_PC[mode], xlabel=is_last)
@@ -231,7 +231,7 @@ for mode in range(n_modes):
         )
         leg.get_frame().set_linewidth(0.4)
 
-# ── Colorbars après rendu ─────────────────────────────────────────────────
+# Colorbars après rendu
 fig.canvas.draw()
 
 for cf, ax, label, fmt in cbar_data:
@@ -249,7 +249,7 @@ for cf, ax, label, fmt in cbar_data:
     cb.locator = mticker.MaxNLocator(nbins=4, prune='both')
     cb.update_ticks()
 
-# ── Sauvegarde ────────────────────────────────────────────────────────────
+# Sauvegarde
 OUTPUT_PNG = FIG_DIR + r"\Figure_04_EOF_SLA.png"
 OUTPUT_PDF = FIG_DIR + r"\Figure_04_EOF_SLA.pdf"
 

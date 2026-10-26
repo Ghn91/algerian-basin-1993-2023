@@ -1,11 +1,11 @@
 polarite,grandeur,unite,minimum,maximum,n
-anticyclone,rayon de vitesse,km,8.695191,54.456914,7215
-anticyclone,rayon effectif,km,8.695191,59.119332,7215
-anticyclone,amplitude,cm,0.402126,16.824201,7215
-anticyclone,distance a la terre,deg,0.130233,2.006498,7215
-anticyclone,detections en premiere couronne,nombre,0,0,7215
-cyclone,rayon de vitesse,km,9.311143,54.132711,4525
-cyclone,rayon effectif,km,9.311143,54.132711,4525
-cyclone,amplitude,cm,0.400123,7.244131,4525
-cyclone,distance a la terre,deg,0.123426,2.039422,4525
-cyclone,detections en premiere couronne,nombre,0,0,4525
+anticyclone,rayon de vitesse,km,9.033437,100.499984,130850
+anticyclone,rayon effectif,km,9.033437,144.036609,130850
+anticyclone,amplitude,cm,0.400022,28.005418,130850
+anticyclone,distance a la terre,deg,0.000675,2.035710,130850
+anticyclone,detections en premiere couronne,nombre,1418,1418,130850
+cyclone,rayon de vitesse,km,10.044267,128.381922,150552
+cyclone,rayon effectif,km,10.044267,128.381922,150552
+cyclone,amplitude,cm,0.400002,15.399773,150552
+cyclone,distance a la terre,deg,0.002686,2.046106,150552
+cyclone,detections en premiere couronne,nombre,138,138,150552

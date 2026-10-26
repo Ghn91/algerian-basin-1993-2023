@@ -74,7 +74,7 @@ def defauts_de_la_serie(triplets, annee_debut=ANNEE_DEBUT, annee_fin=ANNEE_FIN):
     if sentinelles:
         defauts.append(
             f"{len(sentinelles)} valeur(s) sentinelle, la premiere en "
-            f"{sentinelles[0][0]}-{sentinelles[0][1]:02d} — REFUSEE, jamais "
+            f"{sentinelles[0][0]}-{sentinelles[0][1]:02d} — refusee, jamais "
             f"absorbee"
         )
 
@@ -233,6 +233,7 @@ def main(argv):
         return telecharger()
     if "--verifier" in argv:
         return verifier()
+    print(__doc__)
     return 0
 
 
